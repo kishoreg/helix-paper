@@ -1,0 +1,76 @@
+\begin{thebibliography}{10}
+
+\bibitem{cassandra}
+{Apache Cassandra}.
+\newblock http://cassandra.apache.org.
+
+\bibitem{hadoop}
+{Apache Hadoop}.
+\newblock http://hadoop.apache.org/.
+
+\bibitem{yarn}
+{Apache Hadoop NextGen MapReduce (YARN)}.
+\newblock http://hadoop.apache.org/.
+
+\bibitem{hbase}
+{Apache HBase}.
+\newblock http://hbase.apache.org/.
+
+\bibitem{mesos}
+{Apache Mesos}.
+\newblock http://incubator.apache.org/mesos/.
+
+\bibitem{hedwig}
+{Hedwig}.
+\newblock https://cwiki.apache.org/ZOOKEEPER/hedwig.html.
+
+\bibitem{mongodb}
+Mongo{DB}.
+\newblock http://www.mongodb.org/.
+
+\bibitem{sensei}
+{SenseiDB}.
+\newblock http://www.senseidb.com/.
+
+\bibitem{zookeeper}
+{Zookeeper}.
+\newblock http://zookeeper.apache.org.
+
+\bibitem{chang06}
+F.~Chang et~al.
+\newblock Bigtable: A distributed storage system for structured data.
+\newblock In {\em OSDI}, 2006.
+
+\bibitem{cooper08}
+B.~F. Cooper et~al.
+\newblock {PNUTS}: {Y}ahoo!'s hosted data serving platform.
+\newblock In {\em VLDB}, 2008.
+
+\bibitem{dean04}
+J.~Dean and S.~Ghemawat.
+\newblock {MapReduce}: Simplified data processing on large clusters.
+\newblock In {\em OSDI}, 2004.
+
+\bibitem{honicky04}
+R.~Honicky and E.~Miller.
+\newblock Replication under scalable hashing: A family of algorithms for
+  scalable decentralized data distribution.
+\newblock In {\em IPDPS}, 2004.
+
+\bibitem{linkedin12}
+{LinkedIn Data Infrastructure Team}.
+\newblock Data infrastructure at {LinkedIn}.
+\newblock In {\em ICDE}, 2012.
+
+\bibitem{shute12}
+J.~Shute et~al.
+\newblock F1-the fault-tolerant distributed rdbms supporting google's ad
+  business.
+\newblock In {\em SIGMOD}, 2012.
+
+\bibitem{zaharia11}
+M.~Zaharia et~al.
+\newblock The datacenter needs an operating system.
+\newblock In {\em HotCloud}, 2011.
+
+\end{thebibliography}

@@ -1,0 +1,476 @@
+\section{Miscellaneous}
+Here is stuff that may be needed later.
+
+
+{\em Take an example here to map the terms.  Most distributed systems
+at a high level can be tasks, partitions/replicas and its state. In
+this paper, we use these terminolgies to explain Helix design and
+implementation. Its important to note that these are fairly generic
+terms and can be mapped to different things based on the system. For
+example, in a data serving system each task can be a database and if
+the database is sharded, each partition is a shard. Similarly in a pub
+sub system, a task can be a Topic/Queue and in a search system it can
+refer to an Index.  }
+
+%------------------------------------------------
+Helix needed a way to map partitions to nodes.
+tasks, partition/replica and its state.
+Given that partitions are distributed among various nodes in the
+cluster for performance, scalability and operability, the first {\em
+  thing} that Helix needed was a various partition assignment algorithms. 
+One of the commonly used
+algorithm is consistent hashing. The most important goal on any
+assignment is distribute the partitions evenly(assuming they are equal
+weight) among all the nodes in the cluster.
+
+
+
+
+In this section we will cover how the state
+machine with constraints is
+satisfied in Helix in a generic way. As we see
+in our previous section one would
+simply provide the following for each resource
+in the system
+* Number of partitions
+* Number of Replicas for each partition
+* State Machine with valid states and state
+* transitions
+* Constraints on state and state transition.
+
+{\em 
+Justify any interesting design decisions, and the theme is to
+emphasize how they help Helix be generic.
+
+Think about giving anecdote about how we easily spun Espresso w/mysql
+replication from Espresso w/databus replication.  Repeat this in
+evalation.
+
+Limitations/negatives
+\bi
+\item What are the possible problems?
+\item Why aren't we worried about them right now?
+\item What are possible solutions if we want to address them.
+\ei
+
+
+Note about ideal state terminology.
+\bi
+\item 
+We want to describe the set of constraints and
+optimization goals as 1 thing, and an actual
+config that achieves those goals as a 2nd
+thing.
+\item The first thing can be described as an
+optimization problem: maybe "optimization
+spec?"
+\item The second thing is a solution: maybe
+``assignment''
+\ei
+
+
+Consider merged impl with this section if it makes sense
+
+
+Even though all distributed systems share the common terminologies,
+they differ from each other in the way partitions are distributed
+among nodes, states associated with each replica of the partition.
+}
+
+\section{Formalisms}
+
+This section formalizes the description of a DDS, informally introduced
+in Section~\ref{Informal}.
+
+\begin{definition}
+Let \(R = \{r_1, r_2, \ldots r_{N_R}\}\) be a set of resources. 
+\end{definition}
+
+\begin{definition}
+Let the number of resources be \(N_R\)
+\end{definition}
+
+\begin{definition}
+Each resource \(r \in R\) has a set of partitions
+\(P(r) = \{p^r_1, p^r_2, \ldots p^r_{N_(r)}\}\).
+\end{definition}
+
+\begin{definition}
+Let \(N(r)\) be the number of partitions for resource \(r \in R\). 
+\end{definition}
+
+\begin{definition}
+Let \(M = \{m_1, m_2, \ldots m_{N_I}\}\) be a set of machines or 
+or nodes or instances.  
+\end{definition}
+
+\begin{definition}
+Let \(N_M\) be the number of machines.
+\end{definition}
+
+We group the nodes into a mutually exclusive and exhaustive set of zones.
+
+\begin{definition}
+Let \(Z = \{z_1, z_2, \ldots z_{N_Z}\}\) be a set of  zones such that 
+(i) \(z_i \subseteq M\) 
+(ii) \(\forall i \forall j , i \neq j \Rightarrow z_i \cap z_j = \phi \) 
+(iii) \(\cup_i z_i = M\)
+\end{definition}
+
+\begin{definition}
+Let \(N_Z\) be the number of zones.
+\end{definition}
+
+Since resources use machines in common, there is clearly interplay
+between actions performed on different resources. Nonetheless, at this
+point in the discussion, we consider resources independently. 
+We focus on a single resource and write the set of \(N_P\) partitions 
+as \(P = \{p_1, p_2, \ldots p_{N_P}\}\). 
+
+\begin{definition}
+\label{defn_states}
+Let \(S\) be a set of states.  
+\end{definition}
+
+We define the state of the system when it is quiescent as follows.
+
+\begin{definition}
+\label{defn_q1_system_state}
+The {\bf state} \(U\) of a system at a given point in time
+is defined as a set of tuples, 
+\(\{(p, s, m)\} \).  A tuple \((p, s, m)\) tells us that
+partition \(p \in P\) exists in state \(s \in S\) on machine \(m \in M\). 
+\end{definition}
+
+%-----------------------------------------------------
+We {\em must} define which state transitions are legal 
+--- Definition~\ref{defn_legal_transition}.
+\begin{definition}
+\label{defn_legal_transition}.
+Let \(S_L \subseteq S^2 =  S \times S\) be a set of
+legal state transitions. For example, \((s_i, s_j) \in S_L
+\Rightarrow\) it is legal for a partition to transition from state 
+\(s_i\) to state \(s_j\).
+\end{definition}
+%-----------------------------------------------------
+We {\em may} define a partial ordering on the state transitions.
+\begin{definition}
+\label{defn_state_trans_partial_order}
+Let \(S_P \subseteq S_L \times S_L\) be a set of state transitions such
+that \(((s_1, s_2), (s_3, s_4)) \in S_P\) indicates that the transition
+\((s_1, s_2)\) should be executed in preference to the transition
+\((s_3, s_3)\).
+\end{definition}
+%-----------------------------------------------------
+
+We {\it may} impose requirements for each \(s
+\in S\) as in Invariant~\ref{inv_state_count_bound1}
+\begin{definition}
+Let \(Count(p', s') = |\{(p, s, m) | (p, s, m) \in U \wedge p = p' \wedge s =
+s'\}|\) be the number of machines in which partition \(p'\) is in state
+\(s'\)
+\end{definition}
+
+
+\begin{invariant}
+\label{inv_state_count_bound1}
+\(R_X(s) = (lb, ub) \Rightarrow \forall p, lb \leq Count(s, p) \leq ub
+\) says that the number of machines in state \(s\) is {\bf expected} to
+be between \(lb\) and \(ub\) on all partitions.
+\end{invariant}
+
+\begin{invariant}
+\label{inv_one_state_for_one_partition_on_one_machine}
+Note that a partition cannot be in 2 different states on the same
+machine i.e., \((p_1, m_1, s_1) \in U \Rightarrow (p_1, m_1, s_2) \not
+\in U\).
+\end{invariant}
+
+Since the behavior of
+one partition can be reasoned about independent of the state of other
+partitions, it simplifies notation to assume that there is only one
+partition. We can 
+re-write Definition~\ref{defn_q1_system_state} as 
+Definition~\ref{defn_q_system_state}, 
+
+\begin{definition}
+\label{defn_q_system_state}
+The {\bf state} \(U\) of a system at a given point in time
+is defined as a set of tuples, 
+\(\{(m, s)\} \).  A tuple \((m, s)\) tells us that
+machine \(m \in M\).  is in state \(s \in S\) on 
+\end{definition}
+
+When Helix is running, there are external events that cause the state of
+the system to be undesirable. For example, a machine may go down or
+become over-loaded, another machine may come on-line or may become
+lightly loaded. It is the job of Helix to respond to external stimuli by
+changing the state of the system. In doing so, it is important to
+remember what Brutus\footnote{Julius Caesar, Act II, Scene i},  
+eloquently stated as 
+\begin{verse}
+{\em 
+Between the acting of a dreadful thing \\
+And the first motion, all the interim is \\ 
+Like a phantasma or a hideous dream; \\
+}
+\end{verse}
+
+What does this mean in our context? It means that when one issues a
+directive to a machine to change state, there is an unpredictable amount
+of time that elapses between the issuance of the directive and the
+notification of it having taken effect. The kind of change we can
+request is in Definition~\ref{defn_change}.
+
+\begin{definition}
+\label{defn_change}
+A change is a tuple of the form \((m, s_1, s_2)\) indicating a (legal) request to
+change machine \(m\) from state \(s_1\) to state \(s_2\). Note that
+\(s_1 \neq s_2\) and and \((s_1, s_2) \in S_L\)
+\end{definition}
+
+\begin{definition}
+\label{defn_apply_change}.
+The application of a change \((m, s_1, s_2)\) to a quiescent state \(U\) 
+results (at some future point in time) in a new state \(U'\) such that 
+\((m, s_2) \in U'\), assuming that \( (m, s_1) \in U\).
+\end{definition}
+
+\begin{definition}
+\label{defn_system_change}
+Let the ``change set'' \(U_D\) be the set of change requests (Definition~\ref{defn_change}). 
+that have been issued but have not yet been processed. We can also view
+this as the dynamic analog of Definition~\ref{defn_q_system_state}. Note
+that there can be {\bf only one} change request for a given machine 
+\end{definition}
+
+Given that there is uncertainty in the state of a machine, we
+re-write Invariant~\ref{inv_state_count_bound1} as 
+Definition~\ref{defn_d_state_count}.
+
+\begin{definition}
+\label{defn_d_state_count}
+\(R_D(s) = (s, lb, ub) \Rightarrow lb \leq Count(s) \leq ub
+\) says that the number of machines in state \(s\) in a {\bf D}ynamic
+system {\bf is} between \(lb\) and \(ub\).
+\end{definition}
+
+The overall state count is \(R(D)\), defined in
+Definition~\ref{defn_d_state_count_overall}
+\begin{definition}
+\label{defn_d_state_count_overall}
+\(R_D = \{R_D(s)\}\)
+\end{definition}
+
+So, we model the flux that Helix must contend with as a dance between 
+\bi
+\item Helix issuing change requests (Definition~\ref{defn_change}) that get
+added to \(U_D\) (Definition~\ref{defn_system_change}). This 
+increases the uncertainty in our knowledge of the system. 
+In terms of our notations, the
+difference between \(lb\) and \(ub\) for some \((s, lb, ub) \in R_D\)
+increases.
+\item the system responding with notifications that decreases the
+uncertainty.
+In terms of our notations, the
+difference between \(lb\) and \(ub\) for some \((s, lb, ub) \in R_D\)
+decreases.
+\ei
+
+We can model this as a producer/consumer relationship where Helix is the
+producer and the system is the consumer and the result of a change is
+defined in Definition~\ref{defn_apply_change}. Consider a change request
+of the form \((m, s_1, s_2)\) 
+\bd
+\item [PRODUCER] Change request is made
+\be
+\item \((m, s_1, s_2)\) is added to \(U_D\). 
+\item Change to \(R_D\) is as follows
+\bd
+\item [PRIOR] \((s_1, l_1, u_1), (s_2, l_2, u_2) \in R_D\) 
+\item [POSTERIOR] \((s_1, l_1-1, u_1), (s_2, l_2, u_2+1) \in R_D\)
+\ed
+\ee
+\item [CONSUMER] Change request is satisifed
+\be
+\item \((m, s_1, s_2)\) is deleted from \(U_D\) and 
+\bd
+\item [PRIOR] \((s_1, l_1-1, u_1), (s_2, l_2, u_2+1) \in R_D\)
+\item [POSTERIOR] \((s_1, l_1-1, u_1-1), (s_2, l_2+1, u_2+1) \in R_D\)
+\ed
+\ee
+\ed
+
+\subsection{Executing a change set}
+
+\subsubsection{Motivation}
+We have decribed what happens when a single change is applied. Assume
+that we had a set of changes to apply. 
+We would like to execute as many of these changes in parallel. However,
+when we execute them in parallel, we have no guarantee on the order in
+which they will execute. Which means that unless we are confident that
+{\em all} execution orders are valid, we should {\em not} run them in
+parallel.  
+
+The user {\it may} also impose an ordering on state transitions. In
+other words, if have a choice between executing change \((m_1, s_{11},
+s_{12})\) and \((m_2, s_{21}, s_{22})\), then we execute the
+change with the higher priority --- Definition~\ref{defn_priority}
+
+\begin{definition}
+\label{defn_priority}
+There exists a many-to-one mapping from \(P: S_L \rightarrow I^+\) such
+that \\
+\(((s_{11}, s_{12}), p_1), (s_{21}, s_{22}), p_2)) \in P
+\wedge p_1 < p_2 \Rightarrow (s_{11}, s_{12}) \) has higher priority
+than \((s_{21}, s_{22}) \) 
+\end{definition}
+
+We are now in a position to state the problem of executing a change set
+in parallel.
+\begin{definition}
+\label{defn_the_problem}
+Given the state of the system, in terms of \(R_D\) and \(U_D\) and 
+a change set, find the largest subset of it which respects
+Definition~\ref{defn_priority} and
+Invariant~\ref{inv_state_count_bound1}.
+\end{definition}
+
+%% On a more pragmatic note, we must bear in mind that we are working
+%% against a dynamic system where machines can go down and come back up in
+%% unpredictable ways. So, there is little point in spending a lot of time
+%% planning a perfect execution plan and then having it come to naught
+%% because of external factors.
+%% This was stated more eloquently as \footnote{work of devotion
+%% written in Latin by Thomas Kempis.}
+%% \begin{center}
+%% {\em 
+%% Man proposes but God disposes
+%% }
+%% \end{center}
+
+\begin{definition}
+A row \((s_1, s_2, n, r)\) of Table~\ref{State_Transition_Count}
+indicates that there are \(n\) machines in \(U_D\) that need to
+transition from state \(s_1\) to \(s_2\)
+\end{definition}
+
+Figure~\ref{algo} presents the algorithm for Definition~\ref{defn_the_problem}.
+
+\begin{figure}
+\centering
+\fbox{
+\begin{minipage}{8 cm}
+\centering
+\begin{tabbing} \hspace*{0.25in} \= \hspace*{0.25in} \= \kill
+1. \> Create Data Structure in Table~\ref{State_Transition_Count}, sorted
+descending on priority \\
+\> Process the table a row at a time. Let \(m'\) be the number of
+machines \\ 
+2. \> For each row, find the largest value of \(m \leq m'\) such that \\
+\> \(m\) can be applied without violation of any constraint
+\end{tabbing}
+\end{minipage}
+}
+\label{algo}
+\caption{Algorithm A for Definition~\ref{defn_the_problem}}
+\end{figure}
+
+\begin{table}
+\centering
+\begin{tabular}{|l|l|l|l|} \hline \hline
+{\bf From State} & {\bf To State} & {\bf Number of} & {\bf Priority} \\ 
+                 &                & {\bf Machines} &                \\ \hline \hline
+\(s_1\) & \(s_2\) & 3 & 1 \\ \hline 
+\(s_2\) & \(s_3\) & 4 & 2 \\ \hline 
+\(s_1\) & \(s_3\) & 1 & 2 \\ \hline 
+--- & --- & --- & --- \\ \hline 
+\hline
+\end{tabular}
+\caption{Sample of Count of Transitions to be made}
+\label{State_Transition_Count}
+\end{table}
+%------------------------------------------------------
+\begin{theorem}
+The complexity of algorithm A is \(O(M_P)\). This follows from the fact 
+that the maximum number of state transitions that can occur for that
+partition.
+\end{theorem}
+
+\begin{proof}
+\TBC
+\end{proof}
+
+\section{Modeling Usage Examples in Helix}
+
+\subsection{\GP\ in Helix}
+\label{Galapagos_in_Helix}
+When deployed as part of \GP (Section~\ref{Galapagos}), Helix is
+configured as 
+\be
+\item \(S = \{M, S, O\}\), where \(M =\) Master, \(S =\) Slave, \(O =\)
+Offline (Definition~\ref{defn_states}) {\bf TO BE CORRECTED}
+\item When a node comes online, it generates significant network
+traffic. Throttling network traffic is modeled as \(R_D(S) = (S, lb, ub)
+\Rightarrow ub - lb \leq 3\) (Definition~\ref{defn_d_state_count})
+\item \TBC
+\ee
+
+\subsection{YARN in Helix}
+\label{YARN_in_Helix}
+
+Describe how Helix {\it could} have been used by YARN \TBCKG
+%------------------------------------------------
+\section{Operational Ease}
+\label{Operational_Ease}
+
+Having defined how our system {\it should} operate, we would like to
+know how the system {\it does} operate.  For example,
+Section~\ref{Espresso_in_Helix} indicates that there should be exactly
+one master for each partition. From an Ops perspetive though (knowing
+that nodes fail), it is more important to know {\em how often} this
+was violated than {\em whether} it was violated.
+
+In general, we would like to know the fraction (percentage) of time
+during which there were \(n\) instances in state \(S_1\) for \(n =
+0,1, \ldots\). Since this is different for different partitions, we
+sum the times across the partitions.
+Table~\ref{tbl_master_time_stats} shows us that the percentage of time
+when a partition had no master was 2.69\%. Whether this is acceptable
+or not depends on the SLA that the Ops team has established with the
+business owner. What is important to note is that
+\be
+\item This kind of log analysis comes ``out-of-the-box'' with Helix
+\item Helix makes it easy to have such a structured discussion.
+\ee
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|} \hline \hline
+{\bf Number of Instances} & {\bf Time (in sec) } \\ \hline \hline
+0 & 20384093 \\ \hline 
+1 & 734689509 \\ \hline 
+\hline 
+\end{tabular}
+\caption{Time Statistics for state MASTER}
+\label{tbl_master_time_stats}
+\end{table}
+
+% \subsection{Time Statistics for State Slave in \ES}
+% \label{time_stats_for_slave}
+% See Table~\ref{tbl_slave_time_stats}
+% \begin{table}[h]
+% \centering
+% \begin{tabular}{|l|l|} \hline \hline
+% {\bf Number of Instances} & {\bf Time (in sec) } \\ \hline \hline
+% 0 & 9586805 \\ \hline 
+% 1 & 23092725 \\ \hline 
+% 2 & 721804536 \\ \hline 
+% 3 & 589536 \\ \hline 
+% \hline 
+% \end{tabular}
+% \caption{Time Statistics for state SLAVE}
+% \label{tbl_slave_time_stats}
+% \end{table}
+
+%
+

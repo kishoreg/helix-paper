@@ -1,0 +1,819 @@
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  27 SEP 2012 19:58
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**helix
+(./helix.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, ge
+rman-x-2009-06-19, ngerman-x-2009-06-19, afrikaans, ancientgreek, ibycus, arabi
+c, armenian, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danis
+h, dutch, ukenglish, usenglishmax, esperanto, estonian, ethiopic, farsi, finnis
+h, french, galician, german, ngerman, swissgerman, monogreek, greek, hungarian,
+ icelandic, assamese, bengali, gujarati, hindi, kannada, malayalam, marathi, or
+iya, panjabi, tamil, telugu, indonesian, interlingua, irish, italian, kurmanji,
+ lao, latin, latvian, lithuanian, mongolian, mongolianlmc, bokmal, nynorsk, pol
+ish, portuguese, romanian, russian, sanskrit, serbian, serbianc, slovak, sloven
+ian, spanish, swedish, turkish, turkmen, ukrainian, uppersorbian, welsh, loaded
+.
+(./sig-alternate.cls
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/epsfig.sty
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/message (HO)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/04/18 v1.20 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count79
+))
+\Gin@req@height=\dimen102
+\Gin@req@width=\dimen103
+)
+\epsfxsize=\dimen104
+\epsfysize=\dimen105
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip41
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen106
+))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count80
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count81
+\leftroot@=\count82
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count83
+\DOTSCASE@=\count84
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count85
+\c@MaxMatrixCols=\count86
+\dotsspace@=\muskip10
+\c@parentequation=\count87
+\dspbrk@lvl=\count88
+\tag@help=\toks17
+\row@=\count89
+\column@=\count90
+\maxfields@=\count91
+\andhelp@=\toks18
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks19
+\multlinegap=\skip42
+\multlinetaggap=\skip43
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+Document Class 'sig-alternate' <23rd. May '12>. Modified by G.K.M. Tobin/Gerry 
+Murray
+Based in part upon document Style `acmconf' <22 May 89>. Hacked 4/91 by
+shivers@cs.cmu.edu, 4/93 by theobald@cs.mcgill.ca
+Excerpts were taken from (Journal Style) 'esub2acm.cls'.
+****** Bugs/comments/suggestions/technicalities to Gerry Murray -- murray@hq.ac
+m.org ******
+Questions on the style, SIGS policies, etc. to Adrienne Griscti griscti@acm.org
+
+\footheight=\dimen115
+\@maxsep=\dimen116
+\@dblmaxsep=\dimen117
+\aucount=\count92
+\originalaucount=\count93
+\auwidth=\dimen118
+\auskip=\dimen119
+\auskipcount=\count94
+\auskip=\dimen120
+\allauboxes=\dimen121
+\addauthors=\toks21
+\addauflag=\count95
+\subtitletext=\toks22
+\savesection=\count96
+\sectioncntr=\count97
+\c@figure=\count98
+\c@table=\count99
+\titleboxnotes=\toks23
+\titleboxnoteflag=\count100
+Document Class: sig-alternate 2012/05/23 - V2.5 - based on acmproc.cls V1.3 <No
+v. 30 '99>
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/latexsym.sty
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+\@acmtitlebox=\box28
+\titlenotecount=\count101
+\tntoks=\toks24
+\tntokstwo=\toks25
+\tntoksthree=\toks26
+\tntoksfour=\toks27
+\tntoksfive=\toks28
+\catcount=\count102
+\copyrightnotice=\toks29
+\conf=\toks30
+\confinfo=\toks31
+\c@part=\count103
+\c@section=\count104
+\c@subsection=\count105
+\c@subsubsection=\count106
+\c@paragraph=\count107
+
+Using 'Abbrev' bibliography style
+LaTeX Info: Redefining \cite on input line 1211.
+\bibindent=\dimen122
+\colcntr=\count108
+\saveb@x=\box29
+\copyrtyr=\toks32
+\acmcopyr=\toks33
+\boilerplate=\toks34
+\copyrightetc=\toks35
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/t1enc.def
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/ae/t1aer.fd
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+)))
+(/usr/local/texlive/2011/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2011/04/17 v6.82g Hypertext links for LaTeX
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-hyperref.sty
+Package: hobsub-hyperref 2011/04/23 v1.4 Bundle oberdiek, subset hyperref (HO)
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/hobsub-generic.sty
+Package: hobsub-generic 2011/04/23 v1.4 Bundle oberdiek, subset generic (HO)
+Package: hobsub 2011/04/23 v1.4 Subsetting bundle oberdiek (HO)
+Package hobsub Info: Skipping package `infwarerr' (already loaded).
+Package hobsub Info: Skipping package `ltxcmds' (already loaded).
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+Package: ifvtex 2010/03/01 v1.5 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+Package: etexcmds 2011/02/16 v1.5 Prefix for e-TeX command names (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+Package: kvsetkeys 2011/04/07 v1.13 Key value parser (HO)
+Package: kvdefinekeys 2011/04/07 v1.3 Defining keys (HO)
+Package: pdftexcmds 2011/04/22 v0.16 Utilities of pdfTeX for LuaTeX (HO)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+Package: pdfescape 2011/04/04 v1.12 Provides string conversions (HO)
+Package: bigintcalc 2011/01/30 v1.2 Expandable big integer calculations (HO)
+Package: bitset 2011/01/30 v1.1 Data type bit set (HO)
+Package: uniquecounter 2011/01/30 v1.2 Provides unlimited unique counter (HO)
+)
+Package hobsub Info: Skipping package `hobsub' (already loaded).
+Package: letltxmacro 2010/09/02 v1.4 Let assignment for LaTeX macros (HO)
+Package: hopatch 2011/01/30 v1.0 Wrapper for package hooks (HO)
+Package: xcolor-patch 2011/01/30 xcolor patch
+Package: atveryend 2011/04/23 v1.7 Hooks at very end of document (HO)
+Package atveryend Info: \enddocument detected (standard).
+Package: atbegshi 2011/01/30 v1.15 At begin shipout hook (HO)
+Package: refcount 2010/12/01 v3.2 Data extraction from references (HO)
+Package: hycolor 2011/01/30 v1.7 Color options of hyperref/bookmark (HO)
+)
+(/usr/local/texlive/2011/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2010/12/23 v3.10 Keyval support for LaTeX options (HO)
+)
+\@linkdim=\dimen123
+\Hy@linkcounter=\count109
+\Hy@pagecounter=\count110
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2011/04/17 v6.82g Hyperref: PDFDocEncoding definition (HO)
+)
+\Hy@SavedSpaceFactor=\count111
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
+)
+Package hyperref Info: Hyper figures OFF on input line 4026.
+Package hyperref Info: Link nesting OFF on input line 4031.
+Package hyperref Info: Hyper index ON on input line 4034.
+Package hyperref Info: Plain pages OFF on input line 4041.
+Package hyperref Info: Backreferencing OFF on input line 4046.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4264.
+\c@Hy@tempcnt=\count112
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4617.
+\Fld@menulength=\count113
+\Field@Width=\dimen124
+\Fld@charsize=\dimen125
+Package hyperref Info: Hyper figures OFF on input line 5701.
+Package hyperref Info: Link nesting OFF on input line 5706.
+Package hyperref Info: Hyper index ON on input line 5709.
+Package hyperref Info: backreferencing OFF on input line 5716.
+Package hyperref Info: Link coloring OFF on input line 5721.
+Package hyperref Info: Link coloring with OCG OFF on input line 5726.
+Package hyperref Info: PDF/A mode OFF on input line 5731.
+LaTeX Info: Redefining \ref on input line 5771.
+LaTeX Info: Redefining \pageref on input line 5775.
+
+
+Package hyperref Warning: Option `pdfpagelabels' is turned off
+(hyperref)                because \thepage is undefined.
+
+\c@Item=\count114
+\c@Hfootnote=\count115
+)
+
+Package hyperref Message: Driver (autodetected): hpdftex.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/hpdftex.def
+File: hpdftex.def 2011/04/17 v6.82g Hyperref driver for pdfTeX
+\Fld@listcount=\count116
+\c@bookmark@seq@number=\count117
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/rerunfilecheck.sty
+Package: rerunfilecheck 2011/04/15 v1.7 Rerun checks for auxiliary files (HO)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+82.
+)
+\Hy@SectionHShift=\skip44
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count118
+\float@exts=\toks36
+\float@box=\box30
+\@float@everytoks=\toks37
+\@floatcapt=\box31
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks38
+\c@algorithm=\count119
+)
+(/usr/local/texlive/2011/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count120
+\c@ALC@line=\count121
+\c@ALC@rem=\count122
+\c@ALC@depth=\count123
+\ALC@tlm=\skip45
+\algorithmicindent=\skip46
+)
+(./helix.aux)
+\openout1 = `helix.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+
+(/usr/local/texlive/2011/texmf-dist/tex/context/base/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count124
+\scratchdimen=\dimen126
+\scratchbox=\box32
+\nofMPsegments=\count125
+\nofMParguments=\count126
+\everyMPshowfont=\toks39
+\MPscratchCnt=\count127
+\MPscratchDim=\dimen127
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
+\everyMPtoPDFconversion=\toks40
+) (/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Managing graphics extensions (HO)
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
+\AtBeginShipoutBox=\box33
+
+
+Package hyperref Warning: Height of page (\paperheight) is invalid (0.0pt),
+(hyperref)                using 11in.
+
+Package hyperref Info: Link coloring OFF on input line 7.
+(/usr/local/texlive/2011/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2010/04/30 v2.40 Cross-referencing by name of section
+
+(/usr/local/texlive/2011/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
+Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
+)
+\c@section@level=\count130
+)
+LaTeX Info: Redefining \ref on input line 7.
+LaTeX Info: Redefining \pageref on input line 7.
+LaTeX Info: Redefining \nameref on input line 7.
+
+(./helix.out) (./helix.out)
+\@outlinefile=\write3
+\openout3 = `helix.out'.
+
+\c@definition=\count131
+\c@theorem=\count132
+\c@lemma=\count133
+\c@claim=\count134
+\c@notation=\count135
+\c@invariant=\count136
+LaTeX Font Info:    Try loading font information for U+msa on input line 99.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 99.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 99.
+
+(/usr/local/texlive/2011/texmf-dist/tex/latex/base/ulasy.fd
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+) (./abstract.tex)
+(./intro.tex
+Overfull \hbox (5.19162pt too wide) in paragraph at lines 4--14
+[]\T1/aer/m/n/9 The num-ber and va-ri-ety of dis-tributed data sys-tems (DDSs)
+ []
+
+
+Overfull \hbox (7.93134pt too wide) in paragraph at lines 48--51
+\T1/aer/m/n/9 DDS's re-sources must be re-dis-tributed ap-pro-pri-ately across
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{/usr/local/texlive/2011/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+]
+Overfull \hbox (10.87247pt too wide) in paragraph at lines 51--55
+\T1/aer/m/n/9 lowup ac-tion, such as re-replicating lost data or re-balancing
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+)
+(./motivation.tex
+Underfull \vbox (badness 1406) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.52 E
+      spresso is elastic; we add storage nodes as the number and size of dat...
+[2]
+Overfull \hbox (1.89444pt too wide) in paragraph at lines 117--123
+[]\T1/aer/bx/n/9 Assignment of log-i-cal re-sources to phys-i-cal servers
+ []
+
+
+Underfull \vbox (badness 1558) has occurred while \output is active []
+
+)
+(./design.texpdfTeX warning (ext4): destination with the same identifier (name{
+page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.28 \item \emph
+                {Replica}: For reliability and performance, DDSs usually mai...
+[3]
+Underfull \vbox (badness 4279) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.177 
+       [4] <bootstrap_statemodel.png, id=213, 766.865pt x 526.96875pt>
+File: bootstrap_statemodel.png Graphic file (type png)
+
+<use bootstrap_statemodel.png>
+Package pdftex.def Info: bootstrap_statemodel.png used on input line 179.
+(pdftex.def)             Requested size: 240.0pt x 164.91855pt.
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 204.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.328 
+       [5pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.1}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.328 
+       <./bootstrap_statemodel.png>]
+Overfull \hbox (2.5993pt too wide) in paragraph at lines 353--358
+\T1/aer/m/it/9 auto \T1/aer/m/n/9 place-ment to co-locate its re-gions servers 
+with the HDFS
+ []
+
+) (./alerts.tex
+LaTeX Font Info:    Try loading font information for T1+aett on input line 22.
+ (/usr/local/texlive/2011/texmf-dist/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
+Overfull \hbox (3.2842pt too wide) in paragraph at lines 21--30
+[]\T1/aer/m/n/9 Helix stats fol-low the for-mat \T1/aett/m/n/9 (ag-gre-gate-Typ
+e)(statName)\T1/aer/m/n/9 .
+ []
+
+
+Underfull \vbox (badness 1558) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.41 
+      [6]) (./arch.tex <Helix.png, id=247, 578.16pt x 735.74875pt>
+File: Helix.png Graphic file (type png)
+
+<use Helix.png>
+Package pdftex.def Info: Helix.png used on input line 13.
+(pdftex.def)             Requested size: 229.82121pt x 292.46434pt.
+
+Overfull \hbox (1.91785pt too wide) in paragraph at lines 11--19
+[][] 
+ []
+
+
+Overfull \hbox (5.47957pt too wide) in paragraph at lines 29--36
+\T1/aer/m/n/9 DDS im-ple-ments meth-ods \T1/aer/m/it/9 On-Be-come-Lead-er-From-
+Standby \T1/aer/m/n/9 and
+ []
+
+
+Overfull \hbox (1.66325pt too wide) in paragraph at lines 79--85
+\T1/aer/m/n/9 ments. We uti-lize Zookeeper's group mem-ber-ship and change
+ []
+
+
+Underfull \vbox (badness 1558) has occurred while \output is active []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.85 
+      [7pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.2}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.85 
+      <./Helix.png>]
+Overfull \hbox (1.771pt too wide) in paragraph at lines 86--93
+\T1/aer/m/n/9 mu-ni-ca-tion chan-nel be-tween con-troller and par-tic-i-pants. 
+The
+ []
+
+
+Overfull \hbox (6.26167pt too wide) in paragraph at lines 86--93
+\T1/aer/m/n/9 this queue. Pro-duc-ers can can send mul-ti-ple mes-sages through
+
+ []
+
+) (./evaluation.texpdfTeX warning (ext4): destination with the same identifier 
+(name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.26 
+      [8]
+Overfull \hbox (5.232pt too wide) in paragraph at lines 69--71
+[]\T1/aer/bx/n/9 Instrument \T1/aer/m/n/9 In-sert probes that pro-vide in-for-m
+a-tion about
+ []
+
+
+Overfull \hbox (11.17586pt too wide) in paragraph at lines 106--111
+\T1/aer/m/n/9 The clus-ters are built from production-class com-mod-ity servers
+.
+ []
+
+<bootstrap.pdf, id=262, 515.19846pt x 276.05591pt>
+File: bootstrap.pdf Graphic file (type pdf)
+ <use bootstrap.pdf>
+Package pdftex.def Info: bootstrap.pdf used on input line 132.
+(pdftex.def)             Requested size: 217.72458pt x 116.66298pt.
+
+<failure.pdf, id=263, 502.45717pt x 276.05591pt>
+File: failure.pdf Graphic file (type pdf)
+ <use failure.pdf>
+Package pdftex.def Info: failure.pdf used on input line 138.
+(pdftex.def)             Requested size: 217.72458pt x 119.62pt.
+
+Underfull \hbox (badness 1097) in paragraph at lines 140--140
+[]\T1/aer/bx/n/9 Figure 4: [][] Espresso tran-si-tion par-al-lelism vs.
+ []
+
+<rebalance.pdf, id=266, 502.64233pt x 280.53487pt>
+File: rebalance.pdf Graphic file (type pdf)
+ <use rebalance.pdf>
+Package pdftex.def Info: rebalance.pdf used on input line 214.
+(pdftex.def)             Requested size: 240.0pt x 133.9489pt.
+
+Overfull \hbox (11.22754pt too wide) in paragraph at lines 219--233
+\T1/aer/m/n/9 tran-si-tions as few repli-cas as pos-si-ble; in par-tic-u-lar, i
+n Espresso,
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.233 
+       [9pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.5}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.233 
+       <./rebalance.pdf>]
+Underfull \vbox (badness 5504) has occurred while \output is active []
+
+
+<migration-timeseries.pdf, id=287, 499.53784pt x 154.82065pt>
+File: migration-timeseries.pdf Graphic file (type pdf)
+
+<use migration-timeseries.pdf>
+Package pdftex.def Info: migration-timeseries.pdf used on input line 273.
+(pdftex.def)             Requested size: 240.0pt x 74.38156pt.
+
+<average-migration.pdf, id=288, 490.67639pt x 270.45264pt>
+File: average-migration.pdf Graphic file (type pdf)
+
+<use average-migration.pdf>
+Package pdftex.def Info: average-migration.pdf used on input line 280.
+(pdftex.def)             Requested size: 240.0pt x 132.28358pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.302 
+       [10pdfTeX warning (ext4): destination with the same identifier (name{fig
+ure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.302 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.302 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+6}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.302 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+7}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.302 
+       <./bootstrap.pdf> <./failure.pdf> <./migration-timeseries.pdf> <./averag
+e-migration.pdf>]
+<expr/alert_graphs/latency99th_app74_alert_value.png, id=338, 940.51375pt x 530
+.98375pt>
+File: expr/alert_graphs/latency99th_app74_alert_value.png Graphic file (type pn
+g)
+ <use expr/alert_graphs/latency99th_app74_alert_value.png>
+Package pdftex.def Info: expr/alert_graphs/latency99th_app74_alert_value.png us
+ed on input line 305.
+(pdftex.def)             Requested size: 239.49998pt x 135.20865pt.
+
+<expr/alert_graphs/errorcount_sumeach_alert_val.png, id=339, 948.54375pt x 527.
+9725pt>
+File: expr/alert_graphs/errorcount_sumeach_alert_val.png Graphic file (type png
+)
+ <use expr/alert_graphs/errorcount_sumeach_alert_val.png>
+Package pdftex.def Info: expr/alert_graphs/errorcount_sumeach_alert_val.png use
+d on input line 312.
+(pdftex.def)             Requested size: 239.49998pt x 133.30595pt.
+)
+(./related.tex
+Overfull \hbox (1.40076pt too wide) in paragraph at lines 39--43
+[]\T1/aer/m/n/9 As men-tioned be-fore, dis-tributed sys-tems like PNUTS [[]11[]
+],
+ []
+
+
+Overfull \hbox (2.95807pt too wide) in paragraph at lines 65--75
+[]\T1/aer/m/n/9 Hadoop/MapReduce [[]2[], []12[]] pro-vides a pro-gram-ming mode
+l
+ []
+
+
+Overfull \hbox (1.4743pt too wide) in paragraph at lines 76--83
+\T1/aer/m/n/9 Zookeeper alone does not solve the clus-ter man-age-ment prob-
+ []
+
+
+LaTeX Warning: Citation `tanenbaum90' on page \thepage  undefined on input line
+ 87.
+
+
+LaTeX Warning: Citation `frey02' on page \thepage  undefined on input line 87.
+
+
+LaTeX Warning: Citation `ghormley98' on page \thepage  undefined on input line 
+87.
+
+
+LaTeX Warning: Citation `chapin99' on page \thepage  undefined on input line 88
+.
+
+) (./conclusion.texpdfTeX warning (ext4): destination with the same identifier 
+(name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.1 \section
+            {Conclusion} [11]) (./helix.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.132 \end{document}
+                     [12pdfTeX warning (ext4): destination with the same identi
+fier (name{figure.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.132 \end{document}
+                    pdfTeX warning (ext4): destination with the same identifier
+ (name{figure.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.132 \end{document}
+                     <./expr/alert_graphs/latency99th_app74_alert_value.png> <.
+/expr/alert_graphs/errorcount_sumeach_alert_val.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
+ (./helix.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 132.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
+Package rerunfilecheck Info: File `helix.out' has not changed.
+(rerunfilecheck)             Checksum: 54D0FE780DBADC3F49EE73843762917A;2205.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
+ ) 
+Here is how much of TeX's memory you used:
+ 7232 strings out of 493633
+ 100227 string characters out of 3143378
+ 202119 words of memory out of 3000000
+ 10278 multiletter control sequences out of 15000+200000
+ 57553 words of font info for 81 fonts, out of 3000000 for 9000
+ 831 hyphenation exceptions out of 8191
+ 41i,11n,35p,897b,569s stack positions out of 5000i,500n,10000p,200000b,50000s
+{/usr/local/texlive/2011/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
+exlive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/tex
+live/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texl
+ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texliv
+e/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/
+2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/20
+11/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2011
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2011/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2011/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2011/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2011/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2011/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2011/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti9.pfb></usr/local/texlive/2011/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2011/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmtt9.pfb></usr/local/texlive/2011/texmf-dist/fonts/typ
+e1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/
+helvetic/uhvr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/u
+tmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
+</usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on helix.pdf (12 pages, 546220 bytes).
+PDF statistics:
+ 447 PDF objects out of 1000 (max. 8388607)
+ 391 compressed objects within 4 object streams
+ 86 named destinations out of 1000 (max. 500000)
+ 310 words of extra memory for PDF output out of 10000 (max. 10000000)
+

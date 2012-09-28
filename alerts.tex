@@ -1,0 +1,135 @@
+\subsection{Monitoring and Alerts}
+\label{alerts}
+%
+\helix provides functionality for monitoring cluster \\ health, both for the sake
+of alerting human operators and to inform \helix-directed transitions.  
+For example, operators and \helix may be want to monitor request throughputs and 
+latencies, and at a number of granularities: per-server, per-partition, 
+per-customer, per-database, etc.  These metrics help systems detect if they are 
+meeting or missing latency SLAs, detect imbalanced load among servers 
+(and trigger corrective action), and even detect failing components.  
+
+Ultimately, the DDS, rather than \helix, should choose what to montitor.  \helix
+provides a generic framework for monitoring and alerting.  The DDS submits
+statistics and alert \emph{expressions} they want monitored to \helix and then
+at run-time emit statistics to \helix that match those expressions.  \helix is
+oblivious to the semantic meaning of the statistics, yet receives, stores, and
+aggregates them, and fires any alerts that trigger.  In this paper we do not
+fully specify the framework, but instead give a few examples of its
+expressiveness and how it is used.
+
+\helix stats follow the format
+\texttt{(aggregateType)(statName)}.
+For example, a system might create \\
+\texttt{window(5)(db*.partition*.reqCount)} \\
+We use \emph{aggregation types} to specify how stats should be maintained over time.  
+In this case, the aggregation type is a window of the last 5 reported values.
+This stat uses wildcards to tell \helix to track request count for every partition of 
+every db.  We also provide aggregate types \emph{accumulate}, which sums all values 
+reported over time and \emph{decay}, which maintains a decaying sum.
+
+\helix can maintain stats for their own sake; they are also a building block for
+alerts.  An example alert is: \\
+\texttt{decay(0.5)(dbFoo.partition10.reqCount) > 100} \\
+\helix fires an alert if the time decaying sum of request counts on 
+dbFoo's partition 10 exceeds 100.  Similarly, we can instatiate multiple
+alerts at once using wildcards: \\
+\texttt{decay(0.5)(dbFoo.partition*.reqCount) > 100} \\
+The aggregator outputs a column of request counts and an alert fires 
+for \emph{each} value
+above 100. 
+
+Alerts support simple stats enumeration and aggregation using 
+\emph{pipeline operators}.
+\eat{%%%%%%  
+Pipelined alerts follow the format: \\
+$(aggregateType)(s_1, s_2 \ldots s_m)|o_1|o_2| \ldots |o_n$. \\
+$s_i$ indicates a stat name and $o_j$ indicates an operator.  An aggregator
+ouputs a column of values for each $s_i$.  
+}%%%%%%%%
+Each operator expects tuples with 1 or more 
+input columns and outputs tuples with 1 or more columns (valid number of input columns is
+operator specific).  
+%A simple example is: \\
+%\texttt{decay(0.5)(dbFoo.partition*.successCount, \\
+%dbFoo.partition*.failureCount)$|$SUM) \\ > 100} \\
+%For each dbFoo partition, this alert sums the success and failure
+%counts, deriving a request count, and
+%fires if that sum exceeds 100. 
+An example aggregating alert is: \\
+\texttt{decay(0.5)(dbFoo.partition*.failureCount, \\
+dbFoo.partition*.reqCount)$|$SUMEACH$|$DIVIDE) > 100} \\
+This alert sums failure counts across partitions, sums request counts
+across all partitions, and divides to generate a
+database-wide failure rate.
+
+The sets aggregator and operator types within \helix are themselves easy to
+expand.  The only requirement in adding an aggregator is that pipeline operators
+and comparators (">" in above example) must be able to interpret its output.
+Pieline operators must specify their required number of input and output columns.  This
+lets users apply arbitrary operator chains, since \helix can determine in
+advance whether those chains are valid.  While have implemented a number of
+operators, the most commonly used for simple aggregations are SUMEACH, which
+sums each input column to produce an equal number of singleton columns, and SUM,
+which does row-wise summing. 
+
+\eat{%%%%%%%
+\subsection{older outline}
+Design
+  -Design is generic, but use 2 driving examples as running examples.
+  -Justify any interesting design decisions, and the theme is to emphasize how they help Helix be generic.
+  -Think about giving anecdote about how we easily spun Espresso w/mysql replication from Espresso w/databus replication.  Repeat this in evalation.
+
+Limitations/negatives
+ -What are the possible problems?
+ -Why aren't we worried about them right now?
+ -What are possible solutions if we want to address them.
+
+
+Note about ideal state terminology.
+-We want to describe the set of constraints and optimization goals as 1 thing, and an actual config that achieves those goals as a 2nd thing.
+-The first thing can be described as an optimization problem: maybe "optimization spec?"
+-The second thing is a solution: maybe "assignment"
+
+Consider merged impl with this section if it makes sense
+}%%%%%%%%%
+
+\eat{%%%%%%%%
+%
+\helix relies on Zookeeper for detecting hard failures (e.g. a lost server).  Distributed data stores need much more nuanced monitoring as well, however.  Some typical key metrics are request throughputs and latencies, and we monitor these at a number of granularities: per-server, per-partition, per-customer, per-database, etc.  These metrics help systems detect if they are meeting or missing latency SLAs, detect imbalanced load among servers (and trigger corrective action), and even detect failing components.  
+
+\helix provides a generic statistics monitoring and alerting framework.  Systems submit statistic and alert \emph{expressions} they want monitored to \helix and then emit 
+specific statistics matching these expressions during operation.  \helix
+receives, stores and aggregates statistics and evaluates them against alerts,
+firing those that have triggered.  The stats format is purposefully general so
+that systems can monitor whatever metrics they want at whatever granularity.
+The onus is on the system to emit stats that match its expressions.  \helix
+stats have the format: \\
+\texttt{(aggregateType)(statName)} \\
+For example, a system might create: \\
+\texttt{window(5)(db*.partition*.reqCount)} \\
+We use \emph{aggregation types} to specify how stats should be maintained over time.  In this case, the aggregation type is a window of the last 5 reported values.
+This stat uses wildcards to tell \helix to track request count for every partition of every db.  We currently support two other aggregate types: \emph{accumulate}, which sums all values reported over time, and \emph{decay}, which maintains a decaying sum.
+
+It is possible to maintain stats for their own sake or to use them as building blocks for alerts.  An example alert on request count is: \\
+\texttt{decay(0.5)(dbFoo.partition10.reqCount) > 100} \\
+This indicates \helix should fire an alert if the time decaying sum of request counts on dbFoo, partition 10 rises above 100.  We can also use wildcards to instantiate 
+multiple alerts as follows: \\
+\texttt{decay(0.5)(dbFoo.partition*.reqCount) > 100} \\
+This alert is identical to the previous, but now the aggregator outputs a \emph{column} of request count values, one for each dbFoo partition, and creates an alert for each partition.
+
+\helix alerts also support simple stats enumeration and aggregation before alert evaluation using \emph{pipeline operators}.  Pipelined alerts follow the format: \\
+$(aggregate_type)(s_1, s_2 \ldots s_m)|o_1|o_2| \ldots |o_n$. \\
+$s_i$ indicates a stat name and $o_j$ indicates an operator.  Stats aggregation as before outputs columns of values.  Operators expect some 1 or more input data columns and output 1 or more data columns.  A simple example is: \\
+\texttt{decay(0.5)(dbFoo.partition*.successcount, dbFoo.partition*.failurecount)|EXPAND|SUM) > 100} \\
+This alert identifies each dbFoo partition, sums their success and failure counts, and alerts if that sum exceeds 100 for any partition. 
+Finally, we provide a more complex aggregation: \\
+\texttt{decay(0.5)(dbFoo.partition*.failurecount, dbFoo.partition*.reqCount)|EXPAND|SUMEACH|DIVIDE) > 100} \\
+This alert sums all failure counts, sums all request counts, and then uses division to generate a failure rate.
+
+We have made aggregation types and pipeline operators pluggable.  Aggregation types are flexible, but pipeline operators and comparators (\">\" in above examples) must be able to interpret the stat.  Pipeline operators are also flexible, but must specify valid values for the number of input columns it expects and output columns it generates; \helix allows for arbitrary chaining of operators, as long as each step produces a valid number of columns for the next step.  That is, if operator $o_j$ requires a number of input columns from $I(o_j)$ and generates a number of output columns in $O(o_j)$, then we require $I(o_j) \in O(o_{j-1})$ and $I(o_{j+1}) \in O(o_j)$.  For example, \texttt{SUM} takes 1 or more input columns and outputs 1 columns.  These constraints make it easy to expand the set of operators, without worrying about compatibility with existing ones.
+
+\aes{optional, provide a table of all implemented agg types and pipeline operators}
+\aes{formally define pipelines?}
+\aes{describe taking action on alerts...disabling partitions or servers}
+}%%%%%%%%%%%

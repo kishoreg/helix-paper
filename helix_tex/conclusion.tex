@@ -1,0 +1,36 @@
+\section{Conclusion}
+\label{sec:conclusion}
+%
+At \linkedin we have built a sophisticated infrastructure stack of DDSs, including
+offline data storage, data transport, data serving and search systems.  This
+experience has put us in great position to observe the complex, but common,
+cluster management tasks that pervade all of our DDSs.  This motivated us to
+build \helix.  We designed \helix with a diverse set of DDSs in mind to ensure
+its generality.
+
+\helix lets DDSs declare their behavior through a set of pluggable interfaces.
+Chief among these interfaces are a state machine that lets the DDS declare the
+possible states of their partitions and transitions between them, and constraints 
+that must met for each partition.  In this way, DDS designers concentrate on
+the logic of the system, while the \helix execution algorithm carries out transitions in the distributed
+setting.  
+
+We have had a lot of success with \helix at \linkedin.  By providing the
+performance and functionality a DDS would normally target for itself, we have indeed
+offloaded cluster manager work from a number of DDSs.  \helix even lets these DDSs
+make what would normally be drastic changes to the way they are managed with
+just minor changes to the \helix state model.    
+
+We have a number of future directions for \helix.  One of them is to simply
+increase its adoption, a goal we expect our open-source release to accelerate.
+A second goal is to manage more complex types of clusters.  The first challenge
+is to handle heterogeneous node types; we plan to approach this with the notion
+of \emph{node groups}.  We cluster nodes by capabilities (cpu, disk capacity,
+\etc) and weight more performant groups to host larger numbers of partitions. 
+The second challenge is to manage clusters over increasingly complex network
+topologies, including those that span multiple data centers.  
+
+A third goal is to push more load balancing responsibility into \helix.  \helix's
+alerting framework lets it observe imbalance, and we must continue to extend the
+\helix execution algorithm to to respond to imbalance, yet remain completely
+generic across DDSs. 

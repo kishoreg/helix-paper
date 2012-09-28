@@ -1,0 +1,132 @@
+\documentclass{sig-alternate11pt1col}
+
+\usepackage{xspace,xcolor}
+\usepackage{graphicx,hyperref,color}
+\usepackage{algorithm,algorithmic}
+
+\begin{document}
+\conferenceinfo{SOCC'12,} {October 14-17, 2012, San Jose, CA USA} 
+\CopyrightYear{2012}
+\crdata{978-1-4503-1761-0/12/10}
+\clubpenalty=10000
+\widowpenalty = 10000 
+
+\newcommand{\eat}[1]{}
+\newcommand{\eg}{{\em e.g.}, }
+\newcommand{\ie}{{\em i.e.}, }
+\newcommand{\etc}{{etc.}\xspace}
+\newcommand{\etal}{{\em et al.\ }}
+
+\newcommand{\subheader}[1]{\noindent \textbf{#1}}
+
+\newcommand{\linkedin}{{LinkedIn}\xspace}
+\newcommand{\helix}{{Helix}\xspace}
+\newcommand{\ES}{{Espresso}\xspace}
+\newcommand{\databus}{{Databus}\xspace}
+\newcommand{\GP}{{Galapagos}\xspace}
+\newcommand{\sensei}{{Sensei}\xspace}
+\newcommand{\seas}{{Search-as-a-service}\xspace}
+\newcommand{\mysql}{{MySQL}\xspace}
+
+\title{Untangling Cluster Management with \helix}
+
+\def\sharedaffiliation{%
+\end{tabular}
+\begin{tabular}{c}}
+
+
+
+\numberofauthors{1}
+\author{
+\alignauthor Kishore Gopalakrishna, Shi Lu, Adam Silberstein,\\ 
+Ramesh Subramonian, Kapil Surlaker, Zhen Zhang\\
+%
+\sharedaffiliation
+\affaddr{LinkedIn}\\
+\affaddr{Mountain View, CA, USA}\\
+\affaddr{\{kgopalakrishna,slu,asilberstein,rsubramonian,ksurlaker,zzhang\}@linkedin.com}
+}
+
+\newcommand{\aes}[1]{\textcolor{green}{\bf AES: #1}}
+\newcommand{\TBC}{{\framebox{\textbf{TO BE COMPLETED }}}}
+\newcommand{\TBCKS}{{\framebox{\textbf{TO BE COMPLETED KAPIL}}}}
+\newcommand{\TBCKG}{{\framebox{\textbf{TO BE COMPLETED KISHORE}}}}
+\newcommand{\TBCSG}{{\framebox{\textbf{TO BE COMPLETED RAMESH}}}}
+
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bd}{\begin{description}}
+\newcommand{\ed}{\end{description}}
+\newcommand{\be}{\begin{enumerate}}
+\newcommand{\ee}{\end{enumerate}}
+
+\newcommand{\squishlist}{
+   \begin{list}{$\bullet$}
+    {
+      \setlength{\itemsep}{0pt}
+      \setlength{\parsep}{3pt}
+      \setlength{\topsep}{3pt}
+      \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{1.5em}
+      \setlength{\labelwidth}{1em}
+      \setlength{\labelsep}{0.5em} } }
+
+\newcommand{\squishlisttwo}{
+   \begin{list}{$\bullet$}
+    {
+      \setlength{\itemsep}{0pt}
+      \setlength{\parsep}{0pt}
+      \setlength{\topsep}{0pt}
+      \setlength{\partopsep}{0pt}
+      \setlength{\leftmargin}{2em}
+      \setlength{\labelwidth}{1.5em}
+      \setlength{\labelsep}{0.5em} } }
+
+
+\newcommand{\squishend}{
+    \end{list}  }
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{claim}{Claim}
+\newtheorem{notation}{Notation}
+\newtheorem{invariant}{Invariant}
+\newcommand{\ccc}{sample command}
+
+\maketitle
+
+\input{abstract.tex}
+
+\vspace{2mm}
+
+\noindent
+{\bf Categories and Subject Descriptors:} H.3.4 {[Systems and
+    Software]}: {Distributed systems}
+
+\noindent
+{\bf General Terms:} Design, Algorithms
+
+
+\input{intro.tex}
+\input{motivation.tex}
+%%\input{cmpaper.tex}
+\input{design.tex}
+\input{alerts.tex}
+\input{arch.tex}
+%\input{other.tex}
+\input{evaluation.tex}
+\input{related.tex}
+\input{conclusion.tex}
+%\input{misc.tex}
+
+\vspace{5ex}
+
+{\small
+\bibliographystyle{abbrv}
+\bibliography{helix}
+}
+
+
+\end{document}

@@ -1,0 +1,97 @@
+\section{Related Work}
+\label{sec:related}
+%
+The problems that systems dealing with cluster management attempt to solve fall in 3 main categories:
+(a) resource management, (b) enforcing correct system behavior in the presence
+of faults and other changes, and (c) monitoring. 
+
+There are generic systems that solve resource management and monitoring, but not
+fault-tolerance, in a generic manner.  Other DDSs support fault-tolerance and
+enforce system behavior correctness in a way that is specific to that particular
+DDS.
+
+\subsection{Generic Cluster Management Systems}
+
+Systems such as YARN~\cite{yarn} and Mesos~\cite{mesos} implement resource management and 
+some monitoring capabilities in a generic way. Applications using these systems are responsible 
+for implementing the specific logic to react to changes in the cluster and enforce correct system behavior. 
+We detail Mesos an example.
+
+Mesos has 3 components: \emph{slave daemons} that run on each cluster node, a
+\emph{master daemon} that manages the slave daemons, and \emph{applications} that 
+run tasks on the slaves.
+The master daemon is responsible for allocating resources (cpu, ram, disk) across
+the different applications. It also provides a pluggable policy to allow for
+adding of new allocation modules.
+An application running on Mesos consists of a \emph{scheduler} and an
+\emph{executor}.  The scheduler registers with the master daemon to request
+resources. The executor process
+runs on the slave nodes to run the application tasks. The master daemon determines how many
+resources to offer to each application. The application scheduler is responsible
+for deciding which offered resources to use.  Mesos then launches the tasks on
+the corresponding slaves.
+Unlike Helix, Mesos does not provide a declarative way for applications to
+define their behavior and constraints on it and have it enforced automatically,
+but provides resource allocation functionality that is complementary to Helix.
+
+\subsection{Custom Cluster Management}
+
+As mentioned before, distributed systems like PNUTS~\cite{cooper08},
+Hbase~\cite{hbase}, HDFS~\cite{hadoop}, and MongoDB~\cite{mongodb} implement 
+cluster management in those specific systems. As an example, we examine
+MongoDB's cluster management. 
+
+MongoDB provides the concept of document collections which are sharded into
+multiple chunks and assigned to servers in a cluster. MongoDB uses range
+partitioning and splits chunks when chunks grow too large. When the load of any
+node gets too large, the cluster must be rebalanced by adding more nodes to the
+cluster and some chunks move to the new nodes.
+
+Like any other distributed system, MongoDB must provide failover capability and
+ensure that a logical shard is always online. To do this, MongoDB assigns n
+servers (typically 2-3) to a shard. These servers are part of a replica set.
+Replica sets are a form of asynchronous master-slave replication and consist of
+a primary node and slave nodes that replicate from the primary. When the primary
+fails, one of the slaves is elected as the primary.  This approach to fault
+tolerance is similar to the MasterSlave state model \ES uses; \ES gets it for
+free from \helix, while MongoDB had to build it.
+
+Other distributed systems implement very similar cluster management
+capabilities, but each system re-implements it for itself, and not in a way that
+can be easily reused by other systems. 
+
+\subsection{Domain Specific Distributed Systems}
+
+Hadoop/MapReduce~\cite{hadoop,dean04} provides a programming model and
+system for 
+processing large data sets. It has been wildly successful, largely because it
+lets programmers focus on their jobs' logic, while masking the details of the
+distributed setting on which their jobs run.  Each MR job consists of multiple map and reduce jobs 
+and the processing slots get assigned to these jobs. Hadoop takes care of monitoring 
+the tasks and restarting tasks in case of failures.  Hadoop, then, very
+successfully solves the problems we outline for cluster management, but only in
+the MR context.  \helix aims to bring this ease of programming to DDS
+development.
+
+Zookeeper~\cite{zookeeper} is a centralized service for maintaining configuration information, 
+naming, providing distributed synchronization, and providing group services. 
+It is used by many distributed systems to help implement cluster management
+functionality, and we of course use it heavily as a building block in \helix.  It is important to
+note that Zookeeper alone does not solve the cluster management problems.  For
+example, it provides functionality to notify a cluster manager when a node has
+died, but does not plan and execute a response. 
+
+\subsection{Distributed resource management}
+%
+A number of older systems pioneered solutions in distributed resource
+management.  Amoeba~\cite{tanenbaum90}, Globus~\cite{frey02}, GLUnix~\cite{ghormley98} and 
+Legion~\cite{chapin99} all manage large numbers of
+servers and present them as a single, shared resource to users.  The challenges
+they tackle most relevant to \helix include placing resources, scheduling jobs, monitoring 
+jobs for failures, and reliably disseminating messages among nodes.  Much of the
+scheduling work relates closely to how we distribute resource partitions among
+nodes, and how we hope to make this distribution more dynamic in the future,
+where \helix will move partitions aggressively in response to load imbalance.
+On the other hand, we address failure monitoring in \helix with Zookeeper,
+which itself relates closely to these systems.  In general, it is easy to see
+the lineage of these systems reflected in \helix.

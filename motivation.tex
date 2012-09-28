@@ -1,0 +1,155 @@
+\section{Motivation}
+\label{sec:motivation}
+%
+At \linkedin we have built and deployed a number of DDSs.
+These DDSs have many common characteristics in how
+they are deployed, monitored, expanded, \etc and differences in specific optimization goals,
+constraints, \etc on how those commonalities must happen.
+The goal of building a general cluster manager is very appealing for \linkedin and the community.  
+Providing a common way for a system to declare 
+its own model, without worrying about how to force the system to conform to that model, makes creating 
+that model easy and uniform.  Moreover, it simplifies operational support, since there is only one 
+cluster manager executing cluster changes across different systems, and we can concentrate on that 
+manager's correctness.
+
+  Our goal in this work is to 
+formally identify the common characteristics of DDSs and then build a cluster manager that 
+both handles those requirements for the DDS, while exposing interfaces so the DDS can declaratively
+describe their own system-specific model of behavior.  The cluster manager
+itself does the heavy lifting on the DDS. 
+
+ 
+
+\subsection{Use Cases}
+\label{sec:usecases}
+%
+Before delving into cluster manager requirements, it helps to review a sample of DDSs that we 
+target.  We describe three \linkedin systems.  We have purposefully chosen them for their diversity,
+to ensure the commonalities we draw from them are truly found in most or all DDSs.  These use cases
+are good as examples, but are also the some of the earliest use cases at \linkedin that motivated our 
+cluster management work.
+
+\subheader{Espresso}
+Espresso is a distributed, timeline consistent, scalable, document store that 
+supports local secondary indexing and local transactions.  Espresso runs on a 
+number of \emph{storage node} servers that store and index data and 
+answer queries. Espresso databases are horizontally partitioned into a number of partitions, 
+with each partition having a certain number of replicas distributed across the 
+storage nodes.
+
+Espresso designates one replica of each partition as \emph{master} and the rest as \emph{slaves}; only
+one master may exist for each partition at any time.  
+Espresso follows a timeline consistent where only the master of a partition can accept writes to its records, and 
+all slaves receive and apply the same writes through a replication stream.  For load balancing, both master and slave
+partitions are assigned evenly across all storage nodes.  For fault tolerance, it adds the constraint that no   
+two replicas of the same partition may be co-located.
+
+To maintain high availability, Espresso must ensure every partition has an assigned master in the cluster. 
+When a storage node fails, all partitions mastered on that node must have their mastership transferred to other
+nodes and, in particular, nodes hosting slaves of those same partitions.  When this happens, the load should be as 
+evenly distributed as possible.
+
+Espresso is elastic; we add storage nodes as the number and size of databases, and the request rate against them, increases.
+When nodes are added we migrate partitions from existing nodes to new ones.
+The migration must maintain balanced distribution in the cluster but also minimize unnecessary movements. 
+Rebalancing partition in Espresso requires copying and transferring significant amounts of data, and minimizing this expense is 
+crucial.  Even when minimized, we must throttle rebalancing so 
+existing nodes are not overwhelmed.
+
+Skewed workloads might cause a partition, and the storage
+node hosting it, to become a hot spot.  Espresso must execute partition moves to
+alleviate any hot spots.
+
+\subheader{\seas}
+\linkedin's \seas lets internal customers define custom indexes on a
+chosen dataset and then makes those indexes searchable via a service API.
+The index service runs on a cluster of machines.  The index is broken into partitions
+and each partition has a configured number of replicas.  Each cluster server runs 
+an instance of the \sensei~\cite{sensei} system (an online index store) 
+and hosts index partitions. Each new indexing service gets assigned
+to a set of servers, and the partition replicas must be evenly distributed
+across those servers. 
+
+Unlike Espresso, search indexes are not directly written by external
+applications, but instead subscribe to external data streams such as 
+\databus and Kafka~\cite{linkedin12} and take their writes from them.  Therefore, 
+there are no master-slave dynamics among the replicas of a partition; all replicas
+are simply \emph{offline} or \emph{online}.  
+
+When indexes are bootstrapped, the search service uses snapshots of the data
+source (rather than the streams) to create new index partitions.   Bootstrapping 
+is expensive and the system limits the number of partitions that may
+concurrently bootstrap.  
+\eat{%%%%%%
+\seas has a few additional requirements from cluster management.  These include
+peer-to-peer messaging capability (\aes{if we don't discuss this more later,
+omit here}), support for instance level configuration (\aes{what does this
+mean?}), and monitoring at node,partition and service granularities.
+}%%%%%%%%
+
+\subheader{\databus}
+\databus is a \emph{change data capture} (CDC) system that provides a common pipeline 
+for transporting events from LinkedIn primary databases to caches within various applications. 
+
+\databus deploys a cluster of relays that pull the change log from multiple databases and let consumers subscribe to the 
+change log stream.  Each \databus relay connects to one or more database servers
+and hosts a certain subset of databases (and partitions) from those database servers. 
+\databus has the same concerns as \ES and \seas for assigning databases and
+partitions to relays.
+
+\databus consumers have a cluster management problem as well.  For a
+large partitioned database (e.g. \ES), the change log is consumed by a bank of
+consumers.  Each databus partition is assigned to a consumer such that
+partitions are evenly distributed across consumers and each partition is
+assigned to exactly one consumer at a time. The set of consumers may grow over
+time, and consumers may leave the group due to planned or unplanned outages.  In 
+these cases, partitions must be reasssigned, while maintaining balance and the
+single consumer-per-partition invariant. 
+
+\subsection{Requirements}
+\label{sec:requirements}
+%
+The above systems tackle very different use cases.  As we discuss how they
+partition their workloads and balance them across servers, however, it is easy
+to see they have a number of common requirements, which we explicitly list here.
+
+\squishlist
+\item \textbf{Assignment of logical resources to physical servers}
+Our use cases all involve taking a system's set of logical resources and mapping
+them to physical servers.  The logical entities can be database partitions as in
+Espresso, or a consumer as in the \databus consumption case.  Note a logical
+entity may or may not have state associated with it, and a cluster manager must
+be aware of any cost associated with this state (e.g. movement cost).
+\item \textbf{Fault detection and resource reassignment}
+All of our use case systems must handle cluster member failures by first
+detecting such failures, and second rereplicating and reassigning resources 
+across the surviving members, all while satisfying the system's invariants and 
+load balancing goals.  For example, Espresso mandates a single master per
+partition, while \databus consumption mandates a consumer must exist for every
+database partition.  When a server fails, the masters or consumers on that
+server must be reassigned. 
+\item \textbf{Elasticity} 
+Similar to failure detection and response requirement, systems must be able to
+incorporate new cluster physical entities by redistributing logical resources
+to those entities.  For example, Espresso moves partitions to new storage nodes,
+and \databus moves database partitions to new consumers.  
+\item \textbf{Monitoring}
+Our use cases require we monitor systems to detect load imbalance, either
+because of skewed load against a system's logical partitions (\eg an Espresso
+hot spot), or because a physical server become degraded and cannot
+handle its expected load (\eg via disk failure).  We must detect these
+conditions, \eg by monitoring throughput or latency, and then invoke cluster
+transitions to respond.
+\squishend
+ 
+Reflecting back on these requirements we observe a few key trends.  They all
+involve encoding a system's optimal and minimally acceptable state, and having the ability
+to respond to changes in the system to maintain the desired state.  In the
+subsequent sections we show how we incorporate these requirements into \helix. 
+
+\eat{%%%%%%%%%%
+In case of Espresso, the state of a resource can either be OFFLINE,SLAVE or
+MASTER.  SeaS uses both the LEADER-STANDBY and IDLE,OFFLINE,ONLINE,BOOTSTRAP
+state model. \databus consumers use OFFLINE,ONLINE state model.
+\end{itemize}
+}%%%%%%%%%%%

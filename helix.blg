@@ -1,0 +1,56 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: helix.aux
+The style file: abbrv.bst
+Database file #1: helix.bib
+Warning--to sort, need author or key in hadoop
+Warning--to sort, need author or key in hbase
+Warning--to sort, need author or key in cassandra
+Warning--to sort, need author or key in mongodb
+Warning--to sort, need author or key in hedwig
+Warning--to sort, need author or key in yarn
+Warning--to sort, need author or key in sensei
+Warning--to sort, need author or key in zookeeper
+Warning--to sort, need author or key in mesos
+You've used 16 entries,
+            2118 wiz_defined-function locations,
+            554 strings with 4808 characters,
+and the built_in function-call counts, 3311 in all, are:
+= -- 293
+> -- 94
+< -- 0
++ -- 43
+- -- 26
+* -- 130
+:= -- 473
+add.period$ -- 39
+call.type$ -- 16
+change.case$ -- 57
+chr.to.int$ -- 0
+cite$ -- 25
+duplicate$ -- 161
+empty$ -- 404
+format.name$ -- 26
+if$ -- 767
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 7
+newline$ -- 74
+num.names$ -- 14
+pop$ -- 130
+preamble$ -- 1
+purify$ -- 41
+quote$ -- 0
+skip$ -- 130
+stack$ -- 0
+substring$ -- 81
+swap$ -- 23
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 64
+warning$ -- 9
+while$ -- 14
+width$ -- 18
+write$ -- 135
+(There were 9 warnings)

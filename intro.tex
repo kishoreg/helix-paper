@@ -1,0 +1,141 @@
+\section{Introduction}
+\label{sec:intro}
+%
+The number and variety of distributed data systems (DDSs) have grown
+dramatically in recent years and are key infrastructure pieces in a variety of
+industrial and academic settings.    
+These systems cover a number of use cases including online serving,
+offline analytics, search, and messaging.  The 
+appeal of such systems is clear: they let developers solve large-scale data 
+management problems by letting them focus on business logic, rather than hard distributed systems problems
+like fault tolerance, scalability, elasticity, \etc   And because these systems
+deploy on commodity hardware, they let organizations avoid purchasing and
+maintaining specialized hardware. 
+ 
+At \linkedin, as at other web companies, the pieces of our infrastructure stack follow the above 
+model~\cite{linkedin12}.  Our stack includes offline data storage, data
+transport systems \databus and Kafka, front end data serving systems Voldemort
+and \ES, and front end search systems.  We see the same model repeated in a
+variety of other well-known systems like
+Hadoop~\cite{hadoop}, HBase~\cite{hbase}, Cassandra~\cite{cassandra},
+MongoDB~\cite{mongodb} and Hedwig~\cite{hedwig}.  
+These systems serve a variety of purposes and each provides unique features and tradeoffs, yet 
+they share a lot of functionality.  As evidence of shared functionality, we
+observe systems frequently reusing the same off-the-shelf components.  A primary
+example is at the storage layer of DDSs.
+PNUTS~\cite{cooper08}, Espresso~\cite{linkedin12}, and others use \mysql 
+as an underlying storage engine, different Google systems build on
+GFS~\cite{chang06, shute12}, and HBase~\cite{hbase} builds on HDFS.  These storage
+engines are robust building blocks used here for lowest-level storage, while
+other key features like partitioning, replication, \etc are built at higher layers.  
+
+The storage layer, however, is by no means the only component amenable to
+sharing.  What has been missing from \linkedin's and other DDS stacks is shared
+cluster management, or an operating system for the 
+\\ cloud~\cite{zaharia11}.
+DDSs have a number of moving parts, often carrying state.  Much of a
+system's complexity is devoted toward ensuring these components are all alive
+and running effectively, bootstrapping new components to replace failed ones, \etc  
+
+\subheader{Cluster Management}
+The term \emph{cluster management} is a broad one.  We define it as the set of
+common tasks required to run and maintain a DDS.  These tasks are:
+\squishlist
+\item \emph{Resource management}: The resource (database, index, \etc) the DDS
+provides must be divided among different nodes in the cluster.
+\item \emph{Fault tolerance}: The DDS must continue to function amid node
+failures, including not losing data and maintaining read and write availability.
+\item \emph{Elasticity}: As workloads grow, clusters must grow to meet increased
+demand by adding more nodes.  The DDS's resources must be
+redistributed appropriately across the new nodes.
+\item \emph{Monitoring}: The cluster must be monitored, both for component
+failures that affect fault tolerance, and for various health metrics such as load 
+imbalance and SLA misses that affect performance.  Monitoring requires followup
+action, such as re-replicating lost data or re-balancing data across nodes. 
+\squishend
+\eat{%%%%%%%
+\squishlist
+\item \emph{Bootstrapping}: Systems startup with a careful set of choreographed steps.  For example, 
+a server may be assigned a set of data partitions and then create empty data
+stores for the partitions, optionally load the partitions from backups, and then
+make each partition available for serving.  The
+server must progress through these steps sequentially and retry when any fail.
+\item \emph{Deployment constraints}: Systems typically constrain how data is
+distributed across it.  For example, a systems may enforce a minimum number of
+replicas per data partition, and that no replicas of the same partition can be
+co-located on a server. 
+\item \emph{Failure detection and health monitoring}: Systems must have
+monitoring for component failures, as well as various health metrics, 
+such as latency SLA misses or load imbalance.
+\item \emph{Rebalancing for failures/load/elastic expansion}: Systems must
+respond to changes in load and changes to the cluster.   Some examples are the
+ability to respond to failures (\eg by re-replicating under-replicated partitions) and to performance 
+degradation (\eg by shifting partitions from heavily-loaded servers to lightly-loaded servers).  
+Over time we may need to add more capacity to a system, and then must similarly shift load to new servers.
+\squishend
+}%%%%%%%%%%
+We more formally define DDS cluster management tasks in
+Section~\ref{sec:requirements}. 
+
+Despite so much common ground, we do not see a large or mature body of work on making cluster 
+management a generic building block, certainly compared to what we observe at
+the storage layer.  That said, there is a burgeoning body of work in this area
+(as seen in YARN~\cite{yarn} and other systems discussed in
+Section~\ref{sec:related}).  There are a number of possible reasons, but we
+believe the key reason is that the separation between DDS-specific and generic
+functionality is not nearly so obvious in cluster management as it is at the
+storage layer.  In the storage layer, an engine like MySQL is clearly at the
+bottom of the DDS stack.  In cluster management, the responsibility is much more
+symbiotic: DDSs must communicate their correct and desired behavior, and current status to the cluster 
+manager, while the manager must monitor the DDS and take action on it.
+
+While defining and building a generic cluster management system is a daunting
+challenge, the benefits are immense for a company like \linkedin.  We are
+building out many DDSs.  If each of these can rely on a single cluster manager,
+we gain a lot of benefit from simpler and faster development time, as well as
+operational simplicity.  
+
+\textbf{\helix} This paper presents \helix, a generic cluster management system we have developed at LinkedIn.  
+\helix drastically simplifies cluster management by distilling a common
+set of concepts for describing DDSs and then exposing to DDSs pluggable
+interfaces for declaring their correct behavior using these concepts.  
+
+\eat{%%%%%%
+Briefly, a DDS runs on a cluster consisting of
+multiple nodes (\ie servers).  The DDS manages one or more resources, such as a
+database or index; since resources can be very large, they are divided into one
+or more partitions.  We fully distill a DDS's components in
+Section~\ref{sec:requirements}.
+}%%%%%%%%
+
+Key among the pluggable interfaces is
+an augmented finite state machine, which the DDS uses
+to encode its valid settings, \ie its possible states and
+transitions, and constraints over these.   The 
+DDS may also specify, using an optimization module, goals for how its resources are best distributed over a cluster, \ie
+how to place resources and how to throttle cluster transitions.  
+\helix uses these to guide the actions it executes on the various
+components of the DDS.  This includes monitoring 
+system state for correctness and performance, and executing system transitions as
+needed.  \helix automatically ensures the DDS is always valid, both in steady state and while
+executing transitions, and does its best to respect the DDS's optimization
+goals.  This approach lets DDS
+designers focus on modeling system behavior, rather than the complexity of choreographing 
+that behavior.
+
+In this paper we make the following contributions:
+\squishlist
+\item A model for generic cluster management, including both defining the common
+components of a DDS and the functionality a cluster manager must provide (Section~\ref{sec:requirements}).
+\item The design and implementation of \helix.  This includes its pluggable
+interfaces and examples of how we use
+it at \linkedin to support a diverse set of production systems. 
+We initially targeted a diverse set of systems: \ES, a serving store; \databus, a change capture and 
+transport system, and a \seas system.  (Sections~\ref{sec:design} and \ref{sec:arch}).
+\item An experimental study of \helix.  We show that \helix is highly responsive to
+key events like server failure.  We also show how through generic cluster
+management we make it possible to debug DDS correctness while remaining
+agnostic to the DDS's actual purpose. (Section~\ref{sec:eval}).  
+\squishend
+We review related work in Section~\ref{sec:related}.  We conclude and handle
+future work in Section~\ref{sec:conclusion}.

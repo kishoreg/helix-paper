@@ -1,0 +1,33 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Motivation}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Use Cases}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Requirements}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Design}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{DDS Terminology}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Declarative System Behavior}{section.3}% 7
+\BOOKMARK [3][-]{subsubsection.3.2.1}{AFSM}{subsection.3.2}% 8
+\BOOKMARK [3][-]{subsubsection.3.2.2}{Optimization Module}{subsection.3.2}% 9
+\BOOKMARK [2][-]{subsection.3.3}{Helix Execution}{section.3}% 10
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Application-Customized Execution}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.2}{Execution example}{subsection.3.3}% 12
+\BOOKMARK [2][-]{subsection.3.4}{Monitoring and Alerts}{section.3}% 13
+\BOOKMARK [1][-]{section.4}{Helix Architecture}{}% 14
+\BOOKMARK [2][-]{subsection.4.1}{Helix Roles}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.2}{Connecting components with Zookeeper}{section.4}% 16
+\BOOKMARK [2][-]{subsection.4.3}{DDS Integration with Helix}{section.4}% 17
+\BOOKMARK [2][-]{subsection.4.4}{Scaling Helix into a Service}{section.4}% 18
+\BOOKMARK [1][-]{section.5}{Evaluation}{}% 19
+\BOOKMARK [2][-]{subsection.5.1}{Helix at LinkedIn}{section.5}% 20
+\BOOKMARK [2][-]{subsection.5.2}{Experiments}{section.5}% 21
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Bootstrap}{subsection.5.2}% 22
+\BOOKMARK [3][-]{subsubsection.5.2.2}{Failure Detection}{subsection.5.2}% 23
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Elastic Cluster Expansion}{subsection.5.2}% 24
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Planned Downtime}{subsection.5.2}% 25
+\BOOKMARK [3][-]{subsubsection.5.2.5}{Alerts}{subsection.5.2}% 26
+\BOOKMARK [1][-]{section.6}{Related Work}{}% 27
+\BOOKMARK [2][-]{subsection.6.1}{Generic Cluster Management Systems}{section.6}% 28
+\BOOKMARK [2][-]{subsection.6.2}{Custom Cluster Management}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.3}{Domain Specific Distributed Systems}{section.6}% 30
+\BOOKMARK [2][-]{subsection.6.4}{Distributed resource management}{section.6}% 31
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 32
+\BOOKMARK [1][-]{section.8}{References}{}% 33

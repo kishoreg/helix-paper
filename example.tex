@@ -1,0 +1,65 @@
+\documentclass[12pt]{article}
+\begin{document}
+\section{State Transitions --- Example}
+
+The following example illustrates how Helix handles state transitions.
+\begin{itemize}
+\item Initial State: We have 1 partition in state Master on one machine. 
+\item System Change: A second machine comes online 
+\item Desired State: partition is Slave on first machine and
+Master on second
+\item 
+Table~\ref{current_to_desired} illustrates the current and desired state
+%-----------------------------------
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|l|l|} \hline \hline
+\multicolumn{2}{|c|}{Current} & & \multicolumn{2}{|c|}{Desired} \\ \hline 
+{\bf M1} & {\bf M2} & & {\bf M1} & {\bf M2} \\ \hline
+Master   & Offline & \(\rightarrow\) & Slave & Master \\ \hline 
+\hline
+\end{tabular}
+\label{current_to_desired}
+\end{table}
+%-----------------------------------
+\item Table~\ref{state_transitions}  illustrates the state transitions.
+\begin{enumerate}
+\item Row 1 is all the transitions that need to be performed. However, because
+of AFSM constraints, these cannot be fired in any order. 
+\item Row 2 repreents
+a legal grouping of the transitions that maximizes parallelism. 
+\item Row 3 shows that maximal parallel execution is not always desirable. In this case,
+we know that the Offline to Slave transition is the most expensive
+and that it is more important to have a master than a slave. As
+described earlier, Helix allows us to prioritize state transitions.
+Prioritizing \((O \rightarrow S)\) above \(M \rightarrow  S\) yields a
+transition sequence that respects the constraints and business
+requirements of the DSS.
+\end{enumerate}
+%-----------------------------------
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l||l|l|l|} \hline \hline
+1 & To Execute & \multicolumn{3}{|c|}{\((1: M \rightarrow S), 
+(2: O \rightarrow S), (2: S \rightarrow M)\)} \\ \hline 
+2 & Legal & \multicolumn{2}{|c|}{\((1: M \rightarrow S), (2: O \rightarrow S)\)} & \((2: S \rightarrow M)\) \\ \hline
+3 & Preferred & \((2: O \rightarrow S)\) & \((1: M \rightarrow S)\) & \((2: S \rightarrow M)\) \\ \hline
+\hline
+\end{tabular}
+\label{state_transitions}
+\end{table}
+%-----------------------------------
+\item {\bf Throttling}. Assume that we had another partition which we wished to undergo
+the same transition. Since partitions are independent of each other, one
+could execute the transitions for these two at the same time. However,
+for the system as a whole, having 2 partitions go from Offline to Slave
+at the same time might be too expensive. Helix allows us to restrict the
+number of concurrent transitions of any type. This means that while it
+is legal to execute \((2: O \rightarrow S)\) for both partitions
+concurrently, Helix would not do this if the DDS dictated that it would
+be inadvisable.
+
+\end{itemize}
+
+
+\end{document}

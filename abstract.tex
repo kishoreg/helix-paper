@@ -1,0 +1,27 @@
+Distributed data systems systems are used in a variety of
+settings like online serving, offline analytics, data 
+transport, and search, among other use cases.  They let organizations scale out their 
+workloads using cost-effective commodity hardware, while retaining key properties 
+like fault tolerance and scalability.  At \linkedin we have built a number of
+such systems.  A key pattern we observe is that even though they may serve different purposes, 
+they tend to have a lot of common functionality, and tend to use common building blocks 
+in their architectures.  One such building block that is just beginning to
+receive attention is cluster management, which addresses 
+the complexity of handling a moving system with many servers.  This includes
+issues like bootstrapping, data placement constraints, load balancing, \etc  
+All of this shared complexity, which we see in all of our systems, motivates us
+to build a cluster management framework, \helix, to solve these problems once in a
+general way.
+
+\helix lets systems declare how they want their cluster
+managed, primarily by defining a state model that enumerates its
+components' possible states, transitions between those states,
+and constraints that dictate the system's valid settings.  \helix does the heavy lifting of
+ensuring the system satisfies that state model in the distributed setting,
+while also meeting the system's goals on load balancing and throttling state
+changes.
+We detail several \helix-managed production distributed systems 
+at \linkedin and how \helix has helped them avoid building custom management components.  
+We describe the \helix design and implementation and present an experimental
+study that demonstrates its performance and functionality.
+
