@@ -87,8 +87,8 @@ the number of replicas that may concurrently bootstrap is an example of a
 transition constraint.   
 
 We introduce formal language for defining an AFSM.
-A DDS contains one or more resource. Each resource has a set of partitions $P$, each partition $p_i \in P$ has a replica
-set $R(p_i)$, $R_\sigma(p_i)$ is the subset of $R(p_i)$ in state $\sigma$, and 
+A DDS contains one or more resources. Each resource has a set of partitions $P$,
+each partition $p_i \in P$ has a replica set $R(p_i)$, $R_\sigma(p_i)$ is the subset of $R(p_i)$ in state $\sigma$, and 
 $R_\tau(p_i)$ is the subset of $R(p_i)$ undergoing transition $\tau$.  Note for
 ease-of-use we differentiate states and transitions; internally, \helix treats both
 of these as states (changing from a state to a transition is instantaneous).
@@ -165,7 +165,7 @@ reliablility, it prefers to have 2 and not more.
 Goal 3 tells \helix to prioritize slave-to-master transitions above all
 others, followed by offline-to-slave.  The transitions that move replicas
 offline are lowest.  This prioritization is reasonable for \ES, which cannot
-make partitions available for writes without a having a master, and has degraded 
+make partitions available for writes without having a master, and has degraded 
 fault tolerance when it lacks slaves.  The order also minimizes downtime when new nodes
 are added, since slaves are then created on the new nodes before they are removed
 from existing nodes. 
@@ -183,9 +183,9 @@ and no more than 10 concurrent offline-to-slave transitions per cluster.
 
 Figure~\ref{fig:bootstrap_statemodel} shows the detailed state machine for \seas, another
 \helix-managed DDS. As with \\ \ES, the state model and
-constraints are configured in \helix. \seas makes use of state machines to
-configure different resources differently based on the workflow. They also have
-optimization goal similar to \ES to throttle the maximum number of \\
+constraints are configured in \helix. \seas has large number
+number of replicas and one of the main optimization goal is to throttle the
+maximum number of \\
 offline$\rightarrow$bootstrap transitions. 
 
 \subsection{\helix Execution}
@@ -260,7 +260,7 @@ pendingTrans)
 }%%%%%%%%
 
 The most crucial feature of the \helix transition algorithm is that it is identical 
-across of these changes and across all DDSs!  Else, we face a great deal of
+across all of these changes and across all DDSs!  Else, we face a great deal of
 complexity trying to manage so many combinations of changes and DDSs, and lose
 much of \helix's generality.   
 The execution algorithm appears in Algorithm~\ref{alg:execution} and we now step
@@ -298,10 +298,9 @@ partition, taking into account the already pending transitions and those that
 still must occur.  Our key insight is that when we trigger multiple transitions
 in parallel, these transitions are not instantaneous and we do not know in what
 order they will complete.  if we simply trigger any arbitrary
-set of transitions (including all of them), the partition could easily become
-invalid (\eg having no master) while they are underway.  In contrast, if we
-issue transitions one-at-a-time, we know the exact states of the partition, but
-then progress through the transitions very slowly.
+set of transitions (including all of them), it could violate system
+constraint(\eg having more than one master) while they are underway.  In
+contrast, if we issue transitions one-at-a-time, we know the exact states of the partition, but then progress through the transitions very slowly.
 
 Our solution is to produce valid \emph{transition sets}; for a given
 partition, a transition set is valid if
@@ -331,7 +330,8 @@ We are notified by callback and remove those transitions from their partitions
 lists of pending transitions.
 
 The execution algorithm has two greedy key steps, to produce valid transitions and to
-choose transitions for execution, rather deriving both in a single optimization.
+choose transitions for execution, rather than deriving both in a single
+optimization.
 While we could combine the two to produce a provably optimal solution, for the
 time being, we find the current approach produces a high level of parallelism,
 with highest priority transitions scheduled early.
@@ -363,12 +363,6 @@ such applications, and so permit customized placement in \helix, while allowing
 them to benefit from all of \helix's other features, rather than 
 force such applications to build their own cluster management from scratch.
 
-\helix offers a pluggable interface 
-that lets DDSs add more customized placement.  \emph{Semi-auto} placement lets DDSs decide
-replica placement, while \helix still chooses the states of those replicas.
-This is useful for a system like HBase, whose region servers are ideally
-co-located with the HDFS blocks containing those regions' data.  Finally,
-\emph{custom} placement lets DDSs fully customize placement and state.
 
 %\begin{figure*}[t]
 %{\includegraphics[width=0.9\textwidth]{figs/execution_example.png}}

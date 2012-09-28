@@ -13,13 +13,13 @@ to ensure \helix became a truly general cluster manager and not, say, a
 cluster manager for distributed databases. 
 The systems were themselves under development and in need of cluster management
 functionality, and so were likewise attracted to \helix.
-At this writing, all three of \ES, \seas and \databus run in production
-supported by \helix.
+At the time of this writing, all three of \ES, \seas and \databus run in
+production supported by \helix.
 
 With every \helix-DDS integration we found and repaired gaps in the \helix
 design, while maintaining its generality.  For example, \seas needed more
 control than auto replica placement offers, and so we added semi-auto and
-custom.  
+custom modes.
 We also added a \emph{zone} concept to support grouping a set of
 nodes together.  This is useful, for example, in rack-aware replica placement
 strategies.  

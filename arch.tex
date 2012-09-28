@@ -38,7 +38,7 @@ The \emph{spectator} role is for DDS components that need to observe system
 state.  Spectators get notification anytime a transition occurs.  A typical
 spectator is the router component that appears in data stores like \\ \ES.  The
 routers must know how partitions are distributed in order to direct client
-requests and so must be get up-to-date with any partition moves.  The routers do
+requests and so must be up-to-date about any partition moves.  The routers do
 not store any partitions themselves, however, and the controller never executes
 transitions against them.
 
@@ -49,8 +49,8 @@ processes on the same component, or even combined into the same process.
 Dividing responsibility among the components brings a number of key
 advantages.  (A) All global state is managed by the controller, and so the DDS can
 focus on implementing only the local transition logic.  (B) The participant need
-not actually know the state model the control is using to manage its DDS, as long as all the
-transitions required by that state model are implemented.  
+not actually know the state model the controller is using to manage its DDS, as
+long as all the transitions required by that state model are implemented.  
 For example, we can move a DDS from a MasterSlave model to a read-only SlaveOnly
 model with no changes to participants.  The participants will simply never
 be asked to execute slave$\rightarrow$master transitions.  (C) Having a
@@ -69,8 +69,8 @@ functionality into the controller directly or rely on an external component that
 itself persists state and notifies on changes. 
 When the controller chooses state transitions to execute, it must reliably
 communicate these to participants.  Once complete, the participants must
-communicate their status back to the controller.  Again, we either build a custom
-communication channel between the controller and participants, or rely on an
+communicate their status back to the controller.  Again, we can either build a
+custom communication channel between the controller and participants, or rely on an
 external system. 
 The controller cannot be a single point of failure; in particular, when the
 controller fails, we cannot afford to lose either controller functionality or
@@ -86,10 +86,10 @@ and therefore simple to replace on a failure.
 We also leverage Zookeeper to construct the reliable communication channel
 between controller and participants.  
 The channel is modeled as a queue in Zookeeper and the controller and
-participants act as producers and consumers to this queue. Producers can
+participants act as producers and consumers on this queue. Producers can
 can send multiple messages through the queue and consumers can process the messages in parallel. 
-This channel brings side operational benefits like the ability to cancel
-transitions and to send other command messages between nodes.
+This channel brings side
+operational benefits like the ability to cancel transitions and to send other command messages between nodes.
 
 Figure~\ref{fig:arch} illustrates the \helix architecture and brings together
 the different components and how they are represented in Zookeeper.  
