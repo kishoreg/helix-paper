@@ -27,8 +27,8 @@ strategies.
 The first \helix version did not include constraints and goals on transitions, but instead
 satisfied this requirement by overloading state constraints and goals.  This complicated
 the algorithms for computing and throttling transitions.  We added support for
-transitions to remove this complexity, as well as add support for throttling
-transitions at different cluster granularities.
+throttling transitions at different cluster granularities to remove this
+complexity.
 
 \eat{%%%%%%%
 \helix's generic model of a DDS cluster has indeed given us the ability to
@@ -57,8 +57,10 @@ flexibly combine them.
 \textbf{DDS debugging and correctness checking}
 %
 One of the most interesting benefits of \helix falls out of its ability to
-manage a cluster without understanding its purpose.  We have built a debugging
-tool capable to analyzing a DDS's correctness without understanding its purpose.
+manage a cluster without specific knowledge of the DDS's
+functionality by allowing the DDS
+to express them in the form of AFSM and contraints and optimization goals. We
+have built a debugging tool capable to analyzing a DDS's correctness.
 Testing distributed systems is extremely difficult and laborious, and it cannot
 be done with simple unit tests.   Generic
 deubugging tools that function in the distributed setting are especially valuable.  
@@ -68,8 +70,8 @@ simulate, analyze'' methodology. This consists of
 \squishlist
 \item \textbf{Instrument} Insert probes that provide information about the state of the system
 over time.  We use Zookeeper logs as ''probes.''
-\item \textbf{Simulate} We use robots to create cluster error, killing componets
-and injecting faults, both on the DDS and \helix sides.
+\item \textbf{Simulate} We use robots to create cluster error, killing
+components and injecting faults, both on the DDS and \helix sides.
 \item \textbf{Analyze} We parse the logs into a relational format, load them into a database as
 a set of tables and then write invariants on the DDS's constraints.  Violation
 of the constraints signals a possible bug.
@@ -79,7 +81,8 @@ Every DDS that uses \helix automatically benefits from this tool and it has been
 in improving performance and debugging production issues.  
 One of the most difficult parts of debugging a DDS is understanding the sequence
 of events that leads to failure.  \helix logging plus the debugging tool make it
-easy to collect system information and evaluate it.
+easy to collect system information and reconstruct the exact sequence of
+events that lead to the failure.
 As a concrete example, the experiment on
 planned downtime we describe in Section~\ref{sec:downtime} uses this tool to
 measure total downtime and partition availability during software upgrades.
@@ -179,6 +182,21 @@ For example, when an \ES partition enters the slave state \ES creates a \mysql
 database and all required tables for it; this takes tens of milliseconds.
 On bootstrap, this transition takes approximately 100 ms.  
 
+Although it is obvious that improving the parallelism in transitions will
+improve the time to bootstrap, over head added by \helix is proprotional to the
+number of transitions that can be executed in parallel. Through experiment we
+found that majority of this time is spent in updating the cluster meta data in
+Zookeeper. \helix employs lot of techniques like asynchronous writes to
+Zookeeper, restrict writes to a Zookeeper node to one process to avoid
+conflicts, group commit protocol to allow multiple updates in one Zookeeper.
+
+The graphs depict that even though we increase the number of partitions by
+increasing the number of parallelism \helix is able to close the gap in
+bootstrap time. The gap is bigger at low parallelism because the techniques like
+group commit kick in when the parallelism is high. We also see that after a
+certain point increasing the parallism does not have any impact the bootstrap
+time.
+
 \subsubsection{Failure Detection}
 \label{sec:failuredetection}
 %
@@ -203,7 +221,7 @@ for more parallel transitions.  It is interesting to note that earlier versions
 of \helix had recovery times of multiple seconds.  The reason is that when so
 many partitions transitioned from slave to master at once, \helix actually
 bottlenecked trying to record these transitions in Zookeeper.  We ultimately
-solved that bottleneck using techniques like group commit and asyncronous
+solved that bottleneck using techniques like group commit and asynchronous
 reads/writes;  the key point is that we solved this problem for every DDS using \helix and masked
 internal Zookeeper details from them.    
 
@@ -218,12 +236,12 @@ internal Zookeeper details from them.
 
 Another of \helix's key requirements is its ability to incorporate new nodes as
 clusters expand.  Recall Algorithm~\ref{alg:execution}
-handles shifting partitions from existing to new nodes by computing target
+handles moving partitions from existing to new nodes by computing target
 states. 
-We want to ensure rebalancing transitions as few replicas as possible; in
-particular, in \ES, we want to ensure that the number of replicas transitioned to either
-slave or master on new nodes is minimized, since these transitions typically
-involve the expensive step of copying state.
+We want to ensure rebalancing moves as few replicas as possible; in
+particular, in \ES, we want to ensure that the number of replicas moved is
+minimized, since these involve transitions that copy data from node to another
+which is expensive.
 We run an experiment that starts with a cluster with 20 nodes,
 4096 partitions and 3 replicas per partition. We then add 5 new nodes, Helix
 recalculates the placement and we find that 19.6\% of partitions are moved.  The
@@ -243,7 +261,7 @@ than the number of nodes.  As discussed in Section~\ref{sec:design} we modified 
 possibly much smaller numbers of partitions and still achieve close to minimal
 movement.
 
-\subsubsection{Planned Downtime}
+\subsubsection{Planned upgrade}
 \label{sec:downtime}
 %
 One function that \helix manages for DDSs is planned downtime, which helps for a
@@ -257,17 +275,21 @@ Since Helix provides fault tolerance, a DDS system can upgrade its software by u
 The goal of this exercise is to choose a reasonable tradeoff between minimizing
 total upgrade time and minimizing unavailability during the upgrade. 
 One simple approach is to upgrade one node at a time. 
-Though this approach is common, it may leave a lot of parallelism on the table
-that the DDS can handle and would speed up upgrade time.
-Even though this is the most commonly used approach,
-it is not guaranteed to achieve the two state goals.
-The reason is if the ratio of transitions to max parallel transitions allowed on each node is very high, 
-then its possible that overall availability of the system reduce.
-The ideal solution is to have this ratio  close to 1. 
+Though this approach is common, it may in reality reduce the availability of the
+system. 
 
 In this experiment we showcase the impact of concurrent partition migration on a
 single node. We fix the total number of migrations at 1000 and control the
 batch size of partitions that may be concurrently migrated. 
+
+What we see in this experiment is when 100 percent partitions are migrated
+ concurrently, the variation in downtime per partition is very high compared to
+ the variation when 25 percent of partitions are migrated. The unavailability is
+ measured as the sum total of unavailability for each partition. The ideal
+ percentage of partitions to chose for upgrade is directly proportional to the
+ maximum transitions that can concurrently occur on a single node. The purpose
+ of this experiment is to demonstrate that \\helix provides DDS to experiment
+ with various percentages and chose the one where the unavaialabity is minimum
 
 \begin{figure}[t]
     {\includegraphics[width=\columnwidth]{migration-timeseries.pdf}}
