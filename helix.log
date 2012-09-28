@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 00:20
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 00:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -768,40 +768,62 @@ LaTeX Warning: Citation `ghormley98' on page \thepage  undefined on input line
 LaTeX Warning: Citation `chapin99' on page \thepage  undefined on input line 88
 .
 
-) (./conclusion.tex) (./helix.bbl)
+) (./conclusion.tex)
+Overfull \hbox (10.82933pt too wide) in paragraph at lines 42--123
+\T1/aer/m/n/9 and Rahul Ag-gar-wal, Ale-jan-dro Perez, Diego Buthay, Lawrence
+ []
+
+(./helix.bblpdfTeX warning (ext4): destination with the same identifier (name{p
+age.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.65 \bibitem{shute12}
+                       [12pdfTeX warning (ext4): destination with the same iden
+tifier (name{figure.8}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.65 \bibitem{shute12}
+                      pdfTeX warning (ext4): destination with the same identifi
+er (name{figure.9}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.65 \bibitem{shute12}
+                       <./expr/alert_graphs/latency99th_app74_alert_value.png> 
+<./expr/alert_graphs/errorcount_sumeach_alert_val.png>])
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.132 \end{document}
-                     [12pdfTeX warning (ext4): destination with the same identi
-fier (name{figure.8}) has been already used, duplicate ignored
+                     [13
 
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.132 \end{document}
-                    pdfTeX warning (ext4): destination with the same identifier
- (name{figure.9}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.132 \end{document}
-                     <./expr/alert_graphs/latency99th_app74_alert_value.png> <.
-/expr/alert_graphs/errorcount_sumeach_alert_val.png>]
+]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 132.
  (./helix.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 132.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 132.
-Package rerunfilecheck Info: File `helix.out' has not changed.
-(rerunfilecheck)             Checksum: 54D0FE780DBADC3F49EE73843762917A;2205.
+
+
+Package rerunfilecheck Warning: File `helix.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `helix.out':
+(rerunfilecheck)             Before: 54D0FE780DBADC3F49EE73843762917A;2205
+(rerunfilecheck)             After:  E843F7963768D82768BF913B87614489;2257.
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
  ) 
 Here is how much of TeX's memory you used:
- 7232 strings out of 493633
- 100227 string characters out of 3143378
+ 7234 strings out of 493633
+ 100258 string characters out of 3143378
  202853 words of memory out of 3000000
- 10278 multiletter control sequences out of 15000+200000
+ 10279 multiletter control sequences out of 15000+200000
  57553 words of font info for 81 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
  41i,11n,35p,897b,569s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -825,10 +847,10 @@ e1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/
 helvetic/uhvr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/u
 tmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
 </usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on helix.pdf (12 pages, 546984 bytes).
+Output written on helix.pdf (13 pages, 548391 bytes).
 PDF statistics:
- 447 PDF objects out of 1000 (max. 8388607)
- 391 compressed objects within 4 object streams
- 86 named destinations out of 1000 (max. 500000)
+ 452 PDF objects out of 1000 (max. 8388607)
+ 395 compressed objects within 4 object streams
+ 87 named destinations out of 1000 (max. 500000)
  310 words of extra memory for PDF output out of 10000 (max. 10000000)
 
