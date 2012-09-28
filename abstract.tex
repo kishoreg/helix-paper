@@ -7,16 +7,19 @@ such systems.  A key pattern we observe is that even though they may serve diffe
 they tend to have a lot of common functionality, and tend to use common building blocks 
 in their architectures.  One such building block that is just beginning to
 receive attention is cluster management, which addresses 
-the complexity of handling a moving system with many servers.  This includes
-issues like bootstrapping, data placement constraints, load balancing, \etc  
+the complexity of handling a dynamic, large-scale system with many servers.  
+Such systems must handle software and hardware failures, 
+setup tasks such as bootstrapping data, and
+operational issues such as data placement, load balancing, planned upgrades, and cluster expansion.  
+ 
 All of this shared complexity, which we see in all of our systems, motivates us
 to build a cluster management framework, \helix, to solve these problems once in a
 general way.
 
-\helix lets systems declare how they want their cluster
-managed, primarily by defining a state model that enumerates its
-components' possible states, transitions between those states,
-and constraints that dictate the system's valid settings.  \helix does the heavy lifting of
+\helix provides an abstraction for a system developer to separate coordination and management tasks
+from component functional tasks of a distributed system.  The developer defines the system behavior via a 
+state model that enumerates the possible states of each component, the transitions between those states, 
+and constraints that govern the system’s valid settings. \helix does the heavy lifting of
 ensuring the system satisfies that state model in the distributed setting,
 while also meeting the system's goals on load balancing and throttling state
 changes.

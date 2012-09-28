@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  27 SEP 2012 19:58
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 00:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -453,8 +453,14 @@ Overfull \hbox (5.19162pt too wide) in paragraph at lines 4--14
  []
 
 
-Overfull \hbox (7.93134pt too wide) in paragraph at lines 48--51
-\T1/aer/m/n/9 DDS's re-sources must be re-dis-tributed ap-pro-pri-ately across
+Overfull \hbox (8.70857pt too wide) in paragraph at lines 15--31
+\T1/aer/m/n/9 Kafka, front end data serv-ing sys-tems Volde-mort and Espresso,
+ []
+
+
+Overfull \hbox (9.40344pt too wide) in paragraph at lines 15--31
+\T1/aer/m/n/9 peated in a va-ri-ety of other well-known sys-tems like Hadoop [[
+]2[]],
  []
 
 
@@ -464,7 +470,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-Overfull \hbox (10.87247pt too wide) in paragraph at lines 51--55
+Overfull \hbox (7.93134pt too wide) in paragraph at lines 52--55
+\T1/aer/m/n/9 DDS's re-sources must be re-dis-tributed ap-pro-pri-ately across
+ []
+
+
+Overfull \hbox (10.87247pt too wide) in paragraph at lines 55--59
 \T1/aer/m/n/9 lowup ac-tion, such as re-replicating lost data or re-balancing
  []
 
@@ -472,39 +483,33 @@ Overfull \hbox (10.87247pt too wide) in paragraph at lines 51--55
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 )
-(./motivation.tex
-Underfull \vbox (badness 1406) has occurred while \output is active []
-
-pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
-een already used, duplicate ignored
+(./motivation.texpdfTeX warning (ext4): destination with the same identifier (n
+ame{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.52 E
-      spresso is elastic; we add storage nodes as the number and size of dat...
-[2]
-Overfull \hbox (1.89444pt too wide) in paragraph at lines 117--123
+l.46 
+      [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (1.89444pt too wide) in paragraph at lines 118--124
 []\T1/aer/bx/n/9 Assignment of log-i-cal re-sources to phys-i-cal servers
  []
 
-
-Underfull \vbox (badness 1558) has occurred while \output is active []
-
-)
-(./design.texpdfTeX warning (ext4): destination with the same identifier (name{
-page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.28 \item \emph
-                {Replica}: For reliability and performance, DDSs usually mai...
-[3]
-Underfull \vbox (badness 4279) has occurred while \output is active []
+) (./design.tex
+Underfull \vbox (badness 1895) has occurred while \output is active []
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
+l.13 \subsection
+                {DDS Terminology} [3]pdfTeX warning (ext4): destination with th
+e same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
 l.177 
-       [4] <bootstrap_statemodel.png, id=213, 766.865pt x 526.96875pt>
+       [4] <bootstrap_statemodel.png, id=211, 766.865pt x 526.96875pt>
 File: bootstrap_statemodel.png Graphic file (type png)
 
 <use bootstrap_statemodel.png>
@@ -516,13 +521,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.328 
+l.314 
        [5pdfTeX warning (ext4): destination with the same identifier (name{figu
 re.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.328 
+l.314 
        <./bootstrap_statemodel.png>]
 Overfull \hbox (2.5993pt too wide) in paragraph at lines 353--358
 \T1/aer/m/it/9 auto \T1/aer/m/n/9 place-ment to co-locate its re-gions servers 
@@ -565,25 +570,27 @@ Standby \T1/aer/m/n/9 and
  []
 
 
-Overfull \hbox (1.66325pt too wide) in paragraph at lines 79--85
-\T1/aer/m/n/9 ments. We uti-lize Zookeeper's group mem-ber-ship and change
- []
-
-
-Underfull \vbox (badness 1558) has occurred while \output is active []
+Underfull \vbox (badness 3646) has occurred while \output is active []
 
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.85 
-      [7pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.2}) has been already used, duplicate ignored
+l.79 \helix
+            relies on Zookeeper to meet all of these requirements.  We utilize
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.85 
-      <./Helix.png>]
+l.79 \helix
+            relies on Zookeeper to meet all of these requirements.  We utilize 
+<./Helix.png>]
+Overfull \hbox (1.66325pt too wide) in paragraph at lines 79--85
+\T1/aer/m/n/9 ments. We uti-lize Zookeeper's group mem-ber-ship and change
+ []
+
+
 Overfull \hbox (1.771pt too wide) in paragraph at lines 86--93
 \T1/aer/m/n/9 mu-ni-ca-tion chan-nel be-tween con-troller and par-tic-i-pants. 
 The
@@ -599,8 +606,9 @@ Overfull \hbox (6.26167pt too wide) in paragraph at lines 86--93
 (name{page.}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.26 
-      [8]
+l.19 W
+      ith every \helix-DDS integration we found and repaired gaps in the \helix
+[8]
 Overfull \hbox (5.232pt too wide) in paragraph at lines 69--71
 []\T1/aer/bx/n/9 Instrument \T1/aer/m/n/9 In-sert probes that pro-vide in-for-m
 a-tion about
@@ -644,24 +652,18 @@ een already used, duplicate ignored
 <to be read again> 
                    \relax 
 l.233 
-       [9pdfTeX warning (ext4): destination with the same identifier (name{figu
-re.5}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.233 
-       <./rebalance.pdf>]
-Underfull \vbox (badness 5504) has occurred while \output is active []
+       [9]
+Underfull \vbox (badness 1199) has occurred while \output is active []
 
 
-<migration-timeseries.pdf, id=287, 499.53784pt x 154.82065pt>
+<migration-timeseries.pdf, id=275, 499.53784pt x 154.82065pt>
 File: migration-timeseries.pdf Graphic file (type pdf)
 
 <use migration-timeseries.pdf>
 Package pdftex.def Info: migration-timeseries.pdf used on input line 273.
 (pdftex.def)             Requested size: 240.0pt x 74.38156pt.
 
-<average-migration.pdf, id=288, 490.67639pt x 270.45264pt>
+<average-migration.pdf, id=276, 490.67639pt x 270.45264pt>
 File: average-migration.pdf Graphic file (type pdf)
 
 <use average-migration.pdf>
@@ -671,33 +673,45 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.302 
-       [10pdfTeX warning (ext4): destination with the same identifier (name{fig
-ure.3}) has been already used, duplicate ignored
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+[10pdfTeX warning (ext4): destination with the same identifier (name{figure.3})
+ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.302 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-4}) has been already used, duplicate ignored
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.302 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-6}) has been already used, duplicate ignored
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) ha
+s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.302 
-      pdfTeX warning (ext4): destination with the same identifier (name{figure.
-7}) has been already used, duplicate ignored
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) ha
+s been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.302 
-       <./bootstrap.pdf> <./failure.pdf> <./migration-timeseries.pdf> <./averag
-e-migration.pdf>]
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) ha
+s been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.294 T
+       he ability to balance downtime and unavailability is important for DD...
+ <./bootstrap.pdf> <./failure.pdf> <./rebalance.pdf> <./migration-timeseries.pd
+f> <./average-migration.pdf>]
 <expr/alert_graphs/latency99th_app74_alert_value.png, id=338, 940.51375pt x 530
 .98375pt>
 File: expr/alert_graphs/latency99th_app74_alert_value.png Graphic file (type pn
@@ -733,6 +747,12 @@ Overfull \hbox (1.4743pt too wide) in paragraph at lines 76--83
 \T1/aer/m/n/9 Zookeeper alone does not solve the clus-ter man-age-ment prob-
  []
 
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
+een already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.84 \subsection{Distributed resource management}
+                                                  [11]
 
 LaTeX Warning: Citation `tanenbaum90' on page \thepage  undefined on input line
  87.
@@ -748,12 +768,7 @@ LaTeX Warning: Citation `ghormley98' on page \thepage  undefined on input line
 LaTeX Warning: Citation `chapin99' on page \thepage  undefined on input line 88
 .
 
-) (./conclusion.texpdfTeX warning (ext4): destination with the same identifier 
-(name{page.}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.1 \section
-            {Conclusion} [11]) (./helix.bbl)
+) (./conclusion.tex) (./helix.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 132.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
@@ -785,7 +800,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 132.
 Here is how much of TeX's memory you used:
  7232 strings out of 493633
  100227 string characters out of 3143378
- 202119 words of memory out of 3000000
+ 202853 words of memory out of 3000000
  10278 multiletter control sequences out of 15000+200000
  57553 words of font info for 81 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
@@ -810,7 +825,7 @@ e1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/
 helvetic/uhvr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/u
 tmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
 </usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on helix.pdf (12 pages, 546220 bytes).
+Output written on helix.pdf (12 pages, 546984 bytes).
 PDF statistics:
  447 PDF objects out of 1000 (max. 8388607)
  391 compressed objects within 4 object streams

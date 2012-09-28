@@ -12,8 +12,8 @@ like fault tolerance, scalability, elasticity, \etc   And because these systems
 deploy on commodity hardware, they let organizations avoid purchasing and
 maintaining specialized hardware. 
  
-At \linkedin, as at other web companies, the pieces of our infrastructure stack follow the above 
-model~\cite{linkedin12}.  Our stack includes offline data storage, data
+At \linkedin, as at other web companies, our infrastructure stack follows the
+above model~\cite{linkedin12}.  Our stack includes offline data storage, data
 transport systems \databus and Kafka, front end data serving systems Voldemort
 and \ES, and front end search systems.  We see the same model repeated in a
 variety of other well-known systems like
@@ -33,9 +33,13 @@ The storage layer, however, is by no means the only component amenable to
 sharing.  What has been missing from \linkedin's and other DDS stacks is shared
 cluster management, or an operating system for the 
 \\ cloud~\cite{zaharia11}.
-DDSs have a number of moving parts, often carrying state.  Much of a
-system's complexity is devoted toward ensuring these components are all alive
-and running effectively, bootstrapping new components to replace failed ones, \etc  
+DDSs have a number of moving parts, often carrying state.  Much of a system’s complexity is devoted 
+toward ensuring these components are all alive and running effectively, bootstrapping new components
+to replace failed ones, etc.  Handling failures, planned upgrades, background tasks such as backups,
+coalescing of data, updates, rollbacks, cluster expansion, and load balancing all require coordination
+that cannot be accomplished easily or effectively within the components themselves. 
+Coordination is a first-class function of a DDS.  By separating it into a cluster management component, 
+the functional components of the distributed system are simpler to build.  
 
 \subheader{Cluster Management}
 The term \emph{cluster management} is a broad one.  We define it as the set of
@@ -77,18 +81,22 @@ Over time we may need to add more capacity to a system, and then must similarly 
 We more formally define DDS cluster management tasks in
 Section~\ref{sec:requirements}. 
 
-Despite so much common ground, we do not see a large or mature body of work on making cluster 
-management a generic building block, certainly compared to what we observe at
-the storage layer.  That said, there is a burgeoning body of work in this area
-(as seen in YARN~\cite{yarn} and other systems discussed in
-Section~\ref{sec:related}).  There are a number of possible reasons, but we
-believe the key reason is that the separation between DDS-specific and generic
-functionality is not nearly so obvious in cluster management as it is at the
-storage layer.  In the storage layer, an engine like MySQL is clearly at the
-bottom of the DDS stack.  In cluster management, the responsibility is much more
-symbiotic: DDSs must communicate their correct and desired behavior, and current status to the cluster 
-manager, while the manager must monitor the DDS and take action on it.
 
+Despite so much common ground, there is not a large and mature body of work in making cluster management a
+ standalone generic building block as compared to the storage layer. 
+That said, there is a burgeoning body of work in this area
+(as seen in YARN~\cite{yarn} and other systems discussed in
+Section~\ref{sec:related}).  
+
+There are a number of possible reasons.  In the evolution of a DDS, the
+storage layer provides the primary functionality, and the capabilities required to 
+manage and operate the cluster become apparent incrementally as the system is deployed. 
+The most expedient way to add those capabilities is to incorporate them into the DDS components.
+It is not obvious in the early stages that generic cluster management functionality will be required, 
+and as those capabilities are added, the system becomes more complex.  We have found that it is possible 
+to separate the cluster management tasks, and build multiple systems using a generic, standalone cluster
+ manager 
+    
 While defining and building a generic cluster management system is a daunting
 challenge, the benefits are immense for a company like \linkedin.  We are
 building out many DDSs.  If each of these can rely on a single cluster manager,
@@ -96,9 +104,8 @@ we gain a lot of benefit from simpler and faster development time, as well as
 operational simplicity.  
 
 \textbf{\helix} This paper presents \helix, a generic cluster management system we have developed at LinkedIn.  
-\helix drastically simplifies cluster management by distilling a common
-set of concepts for describing DDSs and then exposing to DDSs pluggable
-interfaces for declaring their correct behavior using these concepts.  
+\helix Helix drastically simplifies cluster management by providing a simple abstraction for describing DDSs and 
+exposing to DDS a set of pluggable interfaces for declaring their correct behavior.
 
 \eat{%%%%%%
 Briefly, a DDS runs on a cluster consisting of
@@ -111,15 +118,15 @@ Section~\ref{sec:requirements}.
 Key among the pluggable interfaces is
 an augmented finite state machine, which the DDS uses
 to encode its valid settings, \ie its possible states and
-transitions, and constraints over these.   The 
+transitions, and associated constraints.   The 
 DDS may also specify, using an optimization module, goals for how its resources are best distributed over a cluster, \ie
 how to place resources and how to throttle cluster transitions.  
 \helix uses these to guide the actions it executes on the various
 components of the DDS.  This includes monitoring 
 system state for correctness and performance, and executing system transitions as
 needed.  \helix automatically ensures the DDS is always valid, both in steady state and while
-executing transitions, and does its best to respect the DDS's optimization
-goals.  This approach lets DDS
+executing transitions, and chooses optimal strategies during state changes, given the defined constraints. 
+This approach lets DDS
 designers focus on modeling system behavior, rather than the complexity of choreographing 
 that behavior.
 

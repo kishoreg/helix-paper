@@ -2,9 +2,9 @@
 \label{sec:motivation}
 %
 At \linkedin we have built and deployed a number of DDSs.
-These DDSs have many common characteristics in how
-they are deployed, monitored, expanded, \etc and differences in specific optimization goals,
-constraints, \etc on how those commonalities must happen.
+These DDSÕs share many common attributes in how they are deployed, monitored, expanded, etc.  
+However, these systems have differences in
+ specific optimization goals and constraints governing those common attributes.
 The goal of building a general cluster manager is very appealing for \linkedin and the community.  
 Providing a common way for a system to declare 
 its own model, without worrying about how to force the system to conform to that model, makes creating 
@@ -15,8 +15,7 @@ manager's correctness.
   Our goal in this work is to 
 formally identify the common characteristics of DDSs and then build a cluster manager that 
 both handles those requirements for the DDS, while exposing interfaces so the DDS can declaratively
-describe their own system-specific model of behavior.  The cluster manager
-itself does the heavy lifting on behalf of the DDS. 
+describe their own system-specific model of behavior. The cluster manager then enforces the system-specific model of behavior. 
 
  
 
@@ -25,9 +24,10 @@ itself does the heavy lifting on behalf of the DDS.
 %
 Before delving into cluster manager requirements, it helps to review a sample of DDSs that we 
 target.  We describe three \linkedin systems.  We have purposefully chosen them for their diversity,
-to ensure the commonalities we draw from them are truly found in most or all DDSs.  These use cases
-are good as examples, but are also the some of the earliest use cases at \linkedin that motivated our 
-cluster management work.
+to ensure the commonalities we draw from them are truly found in most or all
+DDSs.  These use cases are good examples, and are also some of the earliest use
+cases at \linkedin that motivated our cluster management work.
+
 
 \subheader{Espresso}
 Espresso is a distributed, timeline consistent, scalable, document store that 
@@ -39,7 +39,7 @@ storage nodes.
 
 Espresso designates one replica of each partition as \emph{master} and the rest as \emph{slaves}; only
 one master may exist for each partition at any time.  
-Espresso follows a timeline consistent model where only the master of a
+Espresso enforces timeline consistentcy where only the master of a
 partition can accept writes to its records, and all slaves receive and apply the same writes through a replication stream.  For load balancing, both master and slave
 partitions are assigned evenly across all storage nodes.  For fault tolerance, it adds the constraint that no   
 two replicas of the same partition may be located on the same node.
