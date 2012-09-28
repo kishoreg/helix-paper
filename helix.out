@@ -8,7 +8,7 @@
 \BOOKMARK [3][-]{subsubsection.3.2.1}{AFSM}{subsection.3.2}% 8
 \BOOKMARK [3][-]{subsubsection.3.2.2}{Optimization Module}{subsection.3.2}% 9
 \BOOKMARK [2][-]{subsection.3.3}{Helix Execution}{section.3}% 10
-\BOOKMARK [3][-]{subsubsection.3.3.1}{Application-Customized Execution}{subsection.3.3}% 11
+\BOOKMARK [3][-]{subsubsection.3.3.1}{Helix Modes of Execution}{subsection.3.3}% 11
 \BOOKMARK [3][-]{subsubsection.3.3.2}{Execution example}{subsection.3.3}% 12
 \BOOKMARK [2][-]{subsection.3.4}{Monitoring and Alerts}{section.3}% 13
 \BOOKMARK [1][-]{section.4}{Helix Architecture}{}% 14
@@ -22,7 +22,7 @@
 \BOOKMARK [3][-]{subsubsection.5.2.1}{Bootstrap}{subsection.5.2}% 22
 \BOOKMARK [3][-]{subsubsection.5.2.2}{Failure Detection}{subsection.5.2}% 23
 \BOOKMARK [3][-]{subsubsection.5.2.3}{Elastic Cluster Expansion}{subsection.5.2}% 24
-\BOOKMARK [3][-]{subsubsection.5.2.4}{Planned Downtime}{subsection.5.2}% 25
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Planned upgrade}{subsection.5.2}% 25
 \BOOKMARK [3][-]{subsubsection.5.2.5}{Alerts}{subsection.5.2}% 26
 \BOOKMARK [1][-]{section.6}{Related Work}{}% 27
 \BOOKMARK [2][-]{subsection.6.1}{Generic Cluster Management Systems}{section.6}% 28

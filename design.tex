@@ -302,11 +302,11 @@ Lets say we have T possible transitions for a partition. Note that the maximum p
  is the number of replicas. If \helix issues all these transitions in parallel,
  they can be executed in any order.
 To ensure correctness in the DDS, \helix needs to evaluate the system state
-for all T! possible orders in which the transitions are executed. The
-maximum value of T is number of replicas for each partition. Cost of evaluating
+for all T! possible orders in which the transitions are executed. Cost of evaluating
 the state correctness for T! perumations grows exponential as number of replicas
 grow. \helix avoids the exponential time complexity by utilizing the fact that
-system constraints are expressed in terms of state which means we need get the count for each state at every intermediate stage.
+system constraints are expressed in terms of state which means \helix needs to 
+get the count for each state at every intermediate stage.
  In other words, from \helix's point of view, (Node1:Master, Node2:Slave) is no
  different from (Node2:Master:Node1:Slave) since the count of Master and Slave is 1 in either case.
 
@@ -367,9 +367,9 @@ among the currently alive process. For example if there are 60 tasks and 4 nodes
 \helix offers a second mode called \emph{SEMI-AUTO} where the DDSs decide the replica placement while \helix still chooses 
 the state of those replicas. This is used where creation of additional replica is expensive which is typical in DDS's which have
  large amount of data associated with each replica. The assumption here is when a node fails instead of remapping replica placement 
- among the remaining nodes only the states of replica changes. For example, when in \espresso when a master fails \helix promotes
-  a slave to master instead of creating a new replica. This ensures the mastership transfer is quick without impacting the availability 
-  of DDS. \helix provides a way for application to reuse RUSH algorithm and
+ among the remaining nodes only the states of replica changes. For example, when
+ in \ES when a master fails \helix promotes a slave to master instead of
+ creating a new replica. This ensures the mastership transfer is quick without impacting the availability of DDS. \helix provides a way for application to reuse RUSH algorithm and
   ensures that when a node fails, the masterships are transferred evenly among
   the remaining nodes. \ES uses this mode of execution. HBase can use \emph{semi-auto} placement to co-locate its regions servers with the HDFS blocks
 containing those regions' data.
@@ -385,7 +385,7 @@ be used to decide the final state of the replica. It is important to note that D
  the transitions needed and executing them such that constraints are not violated. This allows 
 application to still use the other features of \helix like throttling, pluggable FSM \etc. \seas uses this mode of execution. 
 Having this feature allowed \ES to be configured differently based on the
-replication channel. At \linkedin we have deployed \espresso in production using
+replication channel. At \linkedin we have deployed \ES in production using
 native mysql replication. One of the requirements for mysql replication to work
 is that the replicas of all resources hosted on any node must be in the
 same State (Master or Slave).
