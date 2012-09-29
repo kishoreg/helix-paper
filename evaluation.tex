@@ -184,7 +184,7 @@ On bootstrap, this transition takes approximately 100 ms.
 
 Although it is obvious that improving the parallelism in transitions will
 improve the time to bootstrap, overhead added by \helix is proportional to the
-number of transitions that can be executed in parallel. Through experiments we
+number of transitions that can be executed in parallel. Through experiments, we
 found the majority of this time is spent updating cluster metadata in
 Zookeeper. \helix employs many techniques to minimize this time,like asynchronous 
 writes to Zookeeper, restricting writes to a Zookeeper node to a single process to avoid
@@ -222,8 +222,8 @@ of \helix had recovery times of multiple seconds.  The reason is that when so
 many partitions transitioned from slave to master at once, \helix actually
 bottlenecked trying to record these transitions in Zookeeper.  We ultimately
 solved that bottleneck using techniques like group commit and asynchronous
-reads/writes;  the key point is that we solved this problem for every DDS using \helix and masked
-internal Zookeeper details from them.    
+reads/writes;  the key point is we solved this problem once within Helix for
+every DDS and masked internal Zookeeper details from them.
 
 \subsubsection{Elastic Cluster Expansion}
 \label{sec:elastic}
@@ -286,10 +286,8 @@ What we see in this experiment is when 100 percent partitions are migrated
  concurrently, the variation in downtime per partition is very high compared to
  the variation when 25 percent of partitions are migrated. The unavailability is
  measured as the sum total of unavailability for each partition. The ideal
- percentage of partitions to chose for upgrade is directly proportional to the
- maximum transitions that can concurrently occur on a single node. The purpose
- of this experiment is to demonstrate that \helix provides a DDS the ability experiment
- with various percentages and choose the one where unavailability is minimized.
+ percentage of partitions to choose for upgrade is directly proportional to the
+ maximum transitions that can concurrently occur on a single node.
 
 \begin{figure}[t]
     {\includegraphics[width=\columnwidth]{migration-timeseries.pdf}}

@@ -371,9 +371,9 @@ The second \helix mode is \emph{SEMI-AUTO}.  The DDSs decide the replica placeme
 the state of those replicas. This is used where creation of additional replica
 is expensive, as is typical in DDSs that have a large amount of data associated with each replica. 
 The assumption here is that when a node fails, instead of remapping replica placement 
- among the remaining nodes, only the states of replica changes. For example, when a master 
-fails in \ES, \helix promotes a slave to master instead of creating a new
-replica. This ensures mastership transfer is fast,  without negatively impacting
+ among the remaining nodes, only the states of replica changes. For example,
+ in \ES, when a master fails, \helix promotes a slave to master instead of
+ creating a new replica. This ensures mastership transfer is fast,  without negatively impacting
 availability of the DDS. \helix provides a way for application to reuse the RUSH algorithm and
 ensure that when a node fails, masterships are transferred evenly among
 the remaining nodes. \ES uses this mode of execution. As a second example, 
@@ -381,7 +381,7 @@ HBase can use \emph{semi-auto} placement to co-locate its regions servers with t
 containing those regions' data.
 
 \helix offers a third mode called \emph{CUSTOM}, in which DDSs completely control the placement and state of each replica. In this 
-case \helix does the co-ordination to move the DDS from its Current state to the Final state expressed by the DDS. 
+case \helix does the coordination to move the DDS from its Current state to the Final state expressed by the DDS. 
 \helix provides a special interface with which the application provides such
 custom functionality when there are changes in the cluster.
 This functionality can reside on any of the nodes and \helix ensures that it is

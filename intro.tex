@@ -33,9 +33,10 @@ The storage layer, however, is by no means the only component amenable to
 sharing.  What has been missing from \linkedin's and other DDS stacks is shared
 cluster management, or an operating system for the 
 \\ cloud~\cite{zaharia11}.
-DDSs have a number of moving parts, often carrying state.  Much of a system’s complexity is devoted 
-toward ensuring these components are all alive and running effectively, bootstrapping new components
-to replace failed ones, etc.  Handling failures, planned upgrades, background tasks such as backups,
+DDSs have a number of moving parts, often carrying state.  Much of a system's complexity is devoted toward
+ ensuring its components are meeting SLAs
+ during steady state as well as performing operational tasks that are common, but less routine. 
+Handling failures, planned upgrades, background tasks such as backups,
 coalescing of data, updates, rollbacks, cluster expansion, and load balancing all require coordination
 that cannot be accomplished easily or effectively within the components themselves. 
 Coordination is a first-class function of a DDS.  By separating it into a cluster management component, 
