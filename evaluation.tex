@@ -59,11 +59,11 @@ flexibly combine them.
 One of the most interesting benefits of \helix falls out of its ability to
 manage a cluster without specific knowledge of the DDS's
 functionality by allowing the DDS
-to express them in the form of AFSM and contraints and optimization goals. We
+to express them in the form of AFSM and constraints and optimization goals. We
 have built a debugging tool capable to analyzing a DDS's correctness.
 Testing distributed systems is extremely difficult and laborious, and it cannot
 be done with simple unit tests.   Generic
-deubugging tools that function in the distributed setting are especially valuable.  
+debugging tools that function in the distributed setting are especially valuable.  
 
 Our tool uses the ''instrument,
 simulate, analyze'' methodology. This consists of
@@ -108,7 +108,7 @@ they can figure it out.}
 %
 Our experiments draw from a combination of production and experimental
 environments, using the DDS \ES.  The clusters are built from
-production-class commodity servers.  The details of the production
+production-class commodity \\ servers.  The details of the production
 clusters are confidential, but we present details on our experimental cluster 
 throughout our experiment discussion. 
 
@@ -183,19 +183,19 @@ database and all required tables for it; this takes tens of milliseconds.
 On bootstrap, this transition takes approximately 100 ms.  
 
 Although it is obvious that improving the parallelism in transitions will
-improve the time to bootstrap, over head added by \helix is proprotional to the
-number of transitions that can be executed in parallel. Through experiment we
-found that majority of this time is spent in updating the cluster meta data in
-Zookeeper. \helix employs lot of techniques like asynchronous writes to
-Zookeeper, restrict writes to a Zookeeper node to one process to avoid
-conflicts, group commit protocol to allow multiple updates in one Zookeeper.
+improve the time to bootstrap, overhead added by \helix is proportional to the
+number of transitions that can be executed in parallel. Through experiments we
+found the majority of this time is spent updating cluster metadata in
+Zookeeper. \helix employs many techniques to minimize this time,like asynchronous 
+writes to Zookeeper, restricting writes to a Zookeeper node to a single process to avoid
+conflicts, and a group commit protocol to allow multiple updates to one
+Zookeeper.
 
-The graphs depict that even though we increase the number of partitions by
-increasing the number of parallelism \helix is able to close the gap in
-bootstrap time. The gap is bigger at low parallelism because the techniques like
-group commit kick in when the parallelism is high. We also see that after a
-certain point increasing the parallism does not have any impact the bootstrap
-time.
+The graphs depict that even as we increase the number of partitions, by
+increasing parallelism, \helix is able to close the gap in
+bootstrap time. The gap is larger at low parallelism because the benefit from techniques like
+group commit kick in when parallelism is high. We also see that increasing
+parallelism eventually does not further lower bootstrap time.
 
 \subsubsection{Failure Detection}
 \label{sec:failuredetection}
@@ -288,8 +288,8 @@ What we see in this experiment is when 100 percent partitions are migrated
  measured as the sum total of unavailability for each partition. The ideal
  percentage of partitions to chose for upgrade is directly proportional to the
  maximum transitions that can concurrently occur on a single node. The purpose
- of this experiment is to demonstrate that \\helix provides DDS to experiment
- with various percentages and chose the one where the unavaialabity is minimum
+ of this experiment is to demonstrate that \helix provides a DDS the ability experiment
+ with various percentages and choose the one where unavailability is minimized.
 
 \begin{figure}[t]
     {\includegraphics[width=\columnwidth]{migration-timeseries.pdf}}
@@ -351,7 +351,7 @@ Since the alert is wildcarded on node name, we separately monitor 99th
 percentile latency on each node in the \ES cluster.  The decaying sum setting of 1
 means we monitor the latest reported value from each node, and ignore older
 values.  Figure~\ref{fig:latency_alert} shows a production graph displaying the current monitored value for a
-particular \ES node.  The x and y axes are wall time and requiest latency,
+particular \ES node.  The x and y axes are wall time and request latency,
 respectively.  A similar graph (not shown here) indicates whether the
 alert is actually firing and, when fired, emails notification to \ES operators.
 

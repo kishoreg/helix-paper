@@ -24,7 +24,7 @@ just minor changes to the \helix state model.
 We have a number of future directions for \helix.  One of them is to simply
 increase its adoption, a goal we expect our open-source release to accelerate.
 A second goal is to manage more complex types of clusters.  The first challenge
-is to handle heterogenous node types; we plan to approach this with the notion
+is to handle heterogeneous node types; we plan to approach this with the notion
 of \emph{node groups}.  We cluster nodes by capabilities (cpu, disk capacity,
 \etc) and weight more performant groups to host larger numbers of partitions. 
 The second challenge is to manage clusters over increasingly complex network
@@ -35,14 +35,17 @@ alerting framework lets it observe imbalance, and we must continue to extend the
 \helix execution algorithm to to respond to imbalance, yet remain completely
 generic across DDSs. 
 
-\section{Acknowledgements}
+\section{Acknowledgments}
 \label{sec:Acknowledgements}
 
 
-In addition to the Helix team, many other members of the Linkedin Data Infrastructure team helped significantly in the development of Helix. 
-The initial work on Helix came out of the Espresso project. The Espresso team and in particular, Shirshanka Das
-, Lin Qiao, Swaroop Jagadish and Aditya Auradkar worked closely with us driving
-the requirements and shaping some of the ideas. Chavdar Botev, Phanindra Ganti and Boris Shkolnik
-from the Databus team and Rahul Aggarwal, Alejandro Perez, Diego Buthay, Lawrence Tim, Santiago from the Search team were 
-early adopters and helped solidify the early versions. David Zhang, Cuong Tran, Wai Ip were instrumental in stress
+In addition to the \helix team, many other members of the Linkedin Data Infrastructure team 
+helped significantly in the development of \helix. 
+The initial work on Helix came out of the Espresso project. The Espresso team
+and, in particular, Shirshanka Das, Lin Qiao, Swaroop Jagadish and Aditya
+Auradkar worked closely with us defining requirements and shaping the design. 
+Chavdar Botev, Phanindra Ganti and Boris Shkolnik from the Databus team and Rahul Aggarwal, Alejandro Perez, 
+Diego Buthay, Lawrence Tim, Santiago from the Search team were 
+early adopters and helped solidify the early versions of \helix. 
+David Zhang, Cuong Tran, Wai Ip were instrumental in stress
 testing Helix and improving the quality and performance.

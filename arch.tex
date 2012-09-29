@@ -11,7 +11,7 @@ architecture that implements these concepts.
 \begin{minipage}[t]{0.48\textwidth}
 %\centering
 \includegraphics[width=0.95\textwidth]{Helix.png}
-\vspace*{-4ex}
+%\vspace*{-4ex}
 \caption{Helix Architecture}
 \label{fig:arch}
 \end{minipage}
@@ -87,7 +87,7 @@ We also leverage Zookeeper to construct the reliable communication channel
 between controller and participants.  
 The channel is modeled as a queue in Zookeeper and the controller and
 participants act as producers and consumers on this queue. Producers can
-can send multiple messages through the queue and consumers can process the messages in parallel. 
+can send multiple messages \\ through the queue and consumers can process the messages in parallel. 
 This channel brings side
 operational benefits like the ability to cancel transitions and to send other command messages between nodes.
 
@@ -346,7 +346,7 @@ provided by the application.
 Failure:
 
 We will see how the same algorithm is applicable to a Node Failure.
-Lets say node N1 fails, then controller re computes the Idealstate as
+Lets say node N1 fails, then controller re computes the Ideal State as
 N2:M, N3:S. Note that controller knows that N1 is down and assigns
 MASTER state to N2.  The current state immediately after the failure
 is N1:O, N2:S N3:S. It issues S-M transition to N2.

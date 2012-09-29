@@ -94,7 +94,7 @@ ease-of-use we differentiate states and transitions; internally, \helix treats b
 of these as states (changing from a state to a transition is instantaneous).
 $N$ is the set of all nodes, and $R(p_i, n_j)$ denotes the subset of $R(p_i)$
 replicas located on
-node $n_j$.  We assume all nodes are identical, and defer handling heterogenous
+node $n_j$.  We assume all nodes are identical, and defer handling heterogeneous
 node types to future work.
 
 We now take a particular use case, \ES as described in
@@ -161,7 +161,7 @@ Goals 1 and 2 describe \ES's preferences for numbers of masters and
 slaves.  These are nearly identical to constraints 3 and 4 in \ES's AFSM.
 Whereas \ES can legally have 0 or 1 masters per partition, it prefers to have 1
 so that the partition is available; whereas \ES must have at least 2 slaves for
-reliablility, it prefers to have 2 and not more.
+reliability, it prefers to have 2 and not more.
 Goal 3 tells \helix to prioritize slave-to-master transitions above all
 others, followed by offline-to-slave.  The transitions that move replicas
 offline are lowest.  This prioritization is reasonable for \ES, which cannot
@@ -298,17 +298,18 @@ The next part of the algorithm computes a set of valid transitions for the
 partition, taking into account the already pending transitions and those that
 still must occur. The main objective of computing the set of valid transitions is to maximize the 
 transitions that can be done in parallel without violating the state constraints. 
-Lets say we have T possible transitions for a partition. Note that the maximum possible value of T
- is the number of replicas. If \helix issues all these transitions in parallel,
+Suppose we have $T$ possible transitions for a partition. Note that the maximum
+possible value of $T$ is the number of replicas. If \helix issues all these transitions in parallel,
  they can be executed in any order.
 To ensure correctness in the DDS, \helix needs to evaluate the system state
-for all T! possible orders in which the transitions are executed. Cost of evaluating
-the state correctness for T! perumations grows exponential as number of replicas
-grow. \helix avoids the exponential time complexity by utilizing the fact that
-system constraints are expressed in terms of state which means \helix needs to 
+for all $T!$ possible orders in which the transitions are executed. The cost of evaluating
+the state correctness for $T!$ permutations is exponential in the number of replicas. 
+\helix avoids the exponential time complexity by utilizing the fact that
+system constraints are expressed in terms of state, which means \helix needs to 
 get the count for each state at every intermediate stage.
  In other words, from \helix's point of view, (Node1:Master, Node2:Slave) is no
- different from (Node2:Master:Node1:Slave) since the count of Master and Slave is 1 in either case.
+ different from (Node2:Master, Node1:Slave), since the count of masters and
+slaves is 1 each in both cases.
 
 Our solution is to produce valid \emph{transition sets}; for a given
 partition, a transition set is valid if
@@ -356,40 +357,47 @@ multiple resources' partitions.
 
 \helix supports 3 different execution modes which allows application to explicitly control the placement and state of the replica.
 
-The default execution mode is \emph{AUTO} where \helix decides both the placement and state of the replica. This option is useful 
+The default execution mode is \emph{AUTO}, in which \helix decides both the placement and state of the replica. This option is useful 
 for applications where creation of a replica is not expensive. A typical example is evenly distributing a group of tasks 
-among the currently alive process. For example if there are 60 tasks and 4 nodes, helix assigns 15 tasks to each node.
- When one node fails \helix redistributes the 15 tasks to the remaining 3 nodes. Similarly if a node is added, \helix deallocates 3 
- tasks from 4 nodes to the 5th node. \helix does the co-ordination of handing off the task from one node to another and ensures that
-  a task is not performed by two nodes at any given time. Using the RUSH algorithm allows us to balance the tasks without having to 
-  reshuffle task assignment. \databus consumer grouping uses this mode of execution.
+among the currently alive processes. For example, if there are 60 tasks and 4
+nodes, \helix assigns 15 tasks to each node.  When one node fails \helix
+redistributes its 15 tasks to the remaining 3 nodes. Similarly, if a node is added, \helix 
+re-allocates 3 tasks from each of the 4 nodes to the 5th node. \helix does the coordination of 
+handing off a task from one node to another and ensures that a task is not
+performed by two nodes at any given time. The RUSH algorithm allows us to balance the tasks without having to 
+ reshuffle all task assignments. \databus consumer grouping uses this mode of execution.
 
-\helix offers a second mode called \emph{SEMI-AUTO} where the DDSs decide the replica placement while \helix still chooses 
-the state of those replicas. This is used where creation of additional replica is expensive which is typical in DDS's which have
- large amount of data associated with each replica. The assumption here is when a node fails instead of remapping replica placement 
- among the remaining nodes only the states of replica changes. For example, when
- in \ES when a master fails \helix promotes a slave to master instead of
- creating a new replica. This ensures the mastership transfer is quick without impacting the availability of DDS. \helix provides a way for application to reuse RUSH algorithm and
-  ensures that when a node fails, the masterships are transferred evenly among
-  the remaining nodes. \ES uses this mode of execution. HBase can use \emph{semi-auto} placement to co-locate its regions servers with the HDFS blocks
+The second \helix mode is \emph{SEMI-AUTO}.  The DDSs decide the replica placement while \helix still chooses 
+the state of those replicas. This is used where creation of additional replica
+is expensive, as is typical in DDSs that have a large amount of data associated with each replica. 
+The assumption here is that when a node fails, instead of remapping replica placement 
+ among the remaining nodes, only the states of replica changes. For example, when a master 
+fails in \ES, \helix promotes a slave to master instead of creating a new
+replica. This ensures mastership transfer is fast,  without negatively impacting
+availability of the DDS. \helix provides a way for application to reuse the RUSH algorithm and
+ensure that when a node fails, masterships are transferred evenly among
+the remaining nodes. \ES uses this mode of execution. As a second example, 
+HBase can use \emph{semi-auto} placement to co-locate its regions servers with the HDFS blocks
 containing those regions' data.
 
-\helix offers a third mode called \emph{CUSTOM} where DDS's can completely control the placement and state of each replica. In this 
-case \helix will do the co-ordination to get the DDS from its Current state to the Final state has expressed by the DDS's. 
-\helix provides a special interface where the application can provide such
+\helix offers a third mode called \emph{CUSTOM}, in which DDSs completely control the placement and state of each replica. In this 
+case \helix does the co-ordination to move the DDS from its Current state to the Final state expressed by the DDS. 
+\helix provides a special interface with which the application provides such
 custom functionality when there are changes in the cluster.
 This functionality can reside on any of the nodes and \helix ensures that it is
 executed on only one node elected as a leader in the DDS. This mode is useful
-for applications if it wants to co-ordinate across multiple resources or have have additional logic to
-be used to decide the final state of the replica. It is important to note that DDS needs to only express the final placement,state of a replica and \helix does the job of figuring out
- the transitions needed and executing them such that constraints are not violated. This allows 
+for applications if it wants to coordinate across multiple resources or have additional logic to
+be used to decide the final state of the replicas. It is important to note that
+the DDS need only express the final placement and state of replicas; \helix
+still computes the transitions needed and executes them ,such that constraints are not violated. This allows 
 application to still use the other features of \helix like throttling, pluggable FSM \etc. \seas uses this mode of execution. 
-Having this feature allowed \ES to be configured differently based on the
+Having this feature also allows \ES to be configured differently based on the
 replication channel. At \linkedin we have deployed \ES in production using
-native mysql replication. One of the requirements for mysql replication to work
-is that the replicas of all resources hosted on any node must be in the
+native \mysql replication.  One of the requirements for \mysql replication 
+is that the replicas of all resources hosted on any node be in the
 same State (Master or Slave).
-With the help \emph{CUSTOM} execution mode \helix allowed \ES to control the state of all replicas across multiple resources to change the state atomically.
+With \emph{CUSTOM} execution \helix lets \ES control the state of all replicas 
+across multiple resources to change the state atomically.
 
 Applications may want this varying degree of control either because they are very specialized or because they
 are wary of handing over all control to \helix.   We do not want to turn away
@@ -422,7 +430,7 @@ transitions all in parallel since some orderings make the system invalid.
 In order to avoid $p_{10}$ being mastered twice, $t3$ must execute only after
 $t1$ completes. Helix automatically enforces this since it
 issues a transition if and only if it does not violate any of the
-state constraints. There are two possibile valid groupings to reach this target
+state constraints. There are two possible valid groupings to reach this target
 state. One is to execute $t1$ and $t2$ in
 parallel, and then execute $t3$, while the other is to execute $t2$, $t1$, and $t3$
 sequentially. Helix chooses

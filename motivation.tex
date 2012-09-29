@@ -2,7 +2,7 @@
 \label{sec:motivation}
 %
 At \linkedin we have built and deployed a number of DDSs.
-These DDSÕs share many common attributes in how they are deployed, monitored, expanded, etc.  
+These DDSs share many common attributes in how they are deployed, monitored, expanded, etc.  
 However, these systems have differences in
  specific optimization goals and constraints governing those common attributes.
 The goal of building a general cluster manager is very appealing for \linkedin and the community.  
@@ -39,7 +39,7 @@ storage nodes.
 
 Espresso designates one replica of each partition as \emph{master} and the rest as \emph{slaves}; only
 one master may exist for each partition at any time.  
-Espresso enforces timeline consistentcy where only the master of a
+Espresso enforces timeline consistency where only the master of a
 partition can accept writes to its records, and all slaves receive and apply the same writes through a replication stream.  For load balancing, both master and slave
 partitions are assigned evenly across all storage nodes.  For fault tolerance, it adds the constraint that no   
 two replicas of the same partition may be located on the same node.
@@ -104,7 +104,7 @@ consumers.  Each databus partition is assigned to a consumer such that
 partitions are evenly distributed across consumers and each partition is
 assigned to exactly one consumer at a time. The set of consumers may grow over
 time, and consumers may leave the group due to planned or unplanned outages.  In 
-these cases, partitions must be reasssigned, while maintaining balance and the
+these cases, partitions must be reassigned, while maintaining balance and the
 single consumer-per-partition invariant. 
 
 \subsection{Requirements}
@@ -123,7 +123,7 @@ entity may or may not have state associated with it, and a cluster manager must
 be aware of any cost associated with this state (e.g. movement cost).
 \item \textbf{Fault detection and resource reassignment}
 All of our use case systems must handle cluster member failures by first
-detecting such failures, and second rereplicating and reassigning resources 
+detecting such failures, and second re-replicating and reassigning resources 
 across the surviving members, all while satisfying the system's invariants and 
 load balancing goals.  For example, Espresso mandates a single master per
 partition, while \databus consumption mandates a consumer must exist for every
