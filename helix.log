@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 22:34
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 22:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -771,14 +771,11 @@ fier (name{figure.9}) has been already used, duplicate ignored
 l.1 \section{Conclusion}
                          <./expr/alert_graphs/latency99th_app74_alert_value.png
 > <./expr/alert_graphs/errorcount_sumeach_alert_val.png>]
-Overfull \hbox (3.24745pt too wide) in paragraph at lines 42--53
+Overfull \hbox (3.24745pt too wide) in paragraph at lines 47--58
 \T1/aer/m/n/9 Hen-dricks and David De-Maagd for Op-er-a-tions. David Zhang,
  []
 
-) (./helix.bbl
-Underfull \vbox (badness 1910) has occurred while \output is active []
-
-)
+) (./helix.bbl)
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 130.
 pdfTeX warning (ext4): destination with the same identifier (name{page.}) has b
 een already used, duplicate ignored
@@ -790,24 +787,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 130.
  (./helix.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 130.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 130.
-
-
-Package rerunfilecheck Warning: File `helix.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `helix.out':
-(rerunfilecheck)             Before: FF7816AEB3E78621DF592DFBF7D99407;2248
-(rerunfilecheck)             After:  F7928E2E08FE47EC30DFD7BD16978D71;2247.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `helix.out' has not changed.
+(rerunfilecheck)             Checksum: F7928E2E08FE47EC30DFD7BD16978D71;2247.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 130.
  ) 
 Here is how much of TeX's memory you used:
  7226 strings out of 493633
  100217 string characters out of 3143378
- 202283 words of memory out of 3000000
+ 202282 words of memory out of 3000000
  10279 multiletter control sequences out of 15000+200000
  53499 words of font info for 73 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
@@ -830,7 +817,7 @@ s/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
 /urw/helvetic/uhvr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/ti
 mes/utmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmr8a
 .pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on helix.pdf (13 pages, 524334 bytes).
+Output written on helix.pdf (13 pages, 524637 bytes).
 PDF statistics:
  447 PDF objects out of 1000 (max. 8388607)
  392 compressed objects within 4 object streams

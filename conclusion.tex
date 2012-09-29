@@ -32,8 +32,13 @@ topologies, including those that span multiple data centers.
 
 A third goal is to push more load balancing responsibility into \helix.  \helix's
 alerting framework lets it observe imbalance, and we must continue to extend the
-\helix execution algorithm to to respond to imbalance, yet remain completely
+\helix execution algorithm to respond to imbalance, yet remain completely
 generic across DDSs. 
+
+Another feature on the roadmap is to manage clusters that span across two or
+more geographical locations. Related to this is the requirement to manage up to a billion resources.
+This enables the DDS's to perform selective data placement and replication, handle data center failures, 
+and route requests based on geographical affinity.
 
 \section{Acknowledgments}
 \label{sec:Acknowledgements}

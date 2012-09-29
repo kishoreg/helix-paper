@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 22:34
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.7.3)  28 SEP 2012 22:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -805,24 +805,14 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 133.
  (./helix_onecol.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 133.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 133.
-
-
-Package rerunfilecheck Warning: File `helix_onecol.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `helix_onecol.out':
-(rerunfilecheck)             Before: BF27C59CFBE3AC47A73DC7E433F6C075;2202
-(rerunfilecheck)             After:  411E96AC6FEFC9DB127813792F9B291C;2201.
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
+Package rerunfilecheck Info: File `helix_onecol.out' has not changed.
+(rerunfilecheck)             Checksum: 411E96AC6FEFC9DB127813792F9B291C;2201.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 133.
  ) 
 Here is how much of TeX's memory you used:
  7204 strings out of 493633
  100098 string characters out of 3143378
- 193606 words of memory out of 3000000
+ 193605 words of memory out of 3000000
  10276 multiletter control sequences out of 15000+200000
  53499 words of font info for 73 fonts, out of 3000000 for 9000
  831 hyphenation exceptions out of 8191
@@ -845,7 +835,7 @@ s/type1/urw/helvetic/uhvb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1
 /urw/helvetic/uhvr8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/ti
 mes/utmb8a.pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmr8a
 .pfb></usr/local/texlive/2011/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on helix_onecol.pdf (18 pages, 519257 bytes).
+Output written on helix_onecol.pdf (18 pages, 519538 bytes).
 PDF statistics:
  412 PDF objects out of 1000 (max. 8388607)
  352 compressed objects within 4 object streams
